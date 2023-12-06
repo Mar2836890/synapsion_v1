@@ -1,0 +1,18 @@
+Brain Area,Function,Connected To,X Coordinate,Y Coordinate,Z Coordinate
+Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills",Thalamus; Basal Ganglia; Limbic System; Parietal Lobe,10,20,30
+Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input",Frontal Lobe; Occipital Lobe; Temporal Lobe,15,25,35
+Temporal Lobe,"Auditory processing; language comprehension; memory; and emotion",Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,20,30,40
+Occipital Lobe,"Visual processing and interpretation",Parietal Lobe; Temporal Lobe,25,35,45
+Cerebellum,"Coordination of voluntary movements; balance; and posture",Brain Stem; Spinal Cord; Thalamus,5,15,25
+Brain Stem,"Vital autonomic functions such as breathing; heart rate; and blood pressure",Various Brain Regions; Spinal Cord,0,10,20
+Thalamus,"Sensory relay station; relaying signals between different parts of the brain",Almost All Regions of the Cerebral Cortex,5,20,25
+Hypothalamus,"Regulates body temperature; hunger; thirst; and various aspects of the autonomic nervous system",Thalamus; Pituitary Gland; Limbic System,-5,15,30
+Amygdala,"Emotion processing; particularly fear and pleasure responses",Hippocampus; Thalamus; Frontal Lobe,-10,25,35
+Hippocampus,"Formation of new memories and spatial navigation",Amygdala; Thalamus; Various Cortical Regions,-15,30,40
+Basal Ganglia,"Motor control; procedural learning; and routine behaviors",Thalamus; Cortex; Brain Stem,0,25,20
+Cingulate Cortex,"Emotional and cognitive processing; attention; and autonomic functions",Limbic System; Frontal Lobe; Parietal Lobe,-5,30,25
+Broca's Area,"Language production and speech",Wernicke's Area; Frontal Lobe,-10,35,30
+Wernicke's Area,"Language comprehension",Broca's Area; Temporal Lobe,-15,40,35
+Primary Motor Cortex,"Initiating and controlling voluntary movements",Various Regions of the Brain and Spinal Cord,10,10,10
+Primary Somatosensory Cortex,"Processes tactile sensory information; such as touch and pressure",Thalamus; Other Sensory Areas,15,15,15
+Prefrontal Cortex,"Higher cognitive functions; decision-making; personality expression; and moderating social behavior",Various Regions of the Cortex; Limbic System,-10,-10,-10
