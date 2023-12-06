@@ -5,7 +5,7 @@ using System.IO;
 public class SphereRandomGenerator : MonoBehaviour
 {
 
-    public float lineWidth = 0.1f;
+    public float lineWidth = 0.7f;
     public GameObject spherePrefab;
     public Material lineMaterial;
 
@@ -84,52 +84,72 @@ public class SphereRandomGenerator : MonoBehaviour
         foreach (Node node in nodes)
         {
             // Create a sphere for each node
-
-
-
             Vector3 position = new Vector3(node.XCoord, node.YCoord, node.ZCoord);
             GameObject sphere = Instantiate(spherePrefab, position, Quaternion.identity, structure.transform);
 
 
-            NodeComponent existingComponent = sphere.GetComponent<NodeComponent>();
-            if (existingComponent != null)
-            {
-                Destroy(existingComponent);
-            }
+            NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
 
-            // Attach the NodeComponent to the sphere
-
-            NodeComponent nodeComponent = sphere.AddComponent<NodeComponent>();
+            // shows val on console
             nodeComponent.Name = node.Name;
             nodeComponent.Function = node.Function;
             nodeComponent.XCoord = node.XCoord;
             nodeComponent.YCoord = node.YCoord;
             nodeComponent.ZCoord = node.ZCoord;
-            nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
-            spheres.Add(sphere);
+
+            nodeComponent.ConnectedTo = new List<string>();
+            // Add connected nodes to the ConnectedTo list
+            nodeComponent.ConnectedTo.AddRange(node.ConnectedTo);
+
+
+
             // Store the Node data in the NodeComponent
-            // nodeComponent.NodeData = new Node
-            // {
-            //     Name = node.Name,
-            //     Function = node.Function,
-            //     ConnectedTo = new List<string>(node.ConnectedTo),
-            //     XCoord= node.XCoord,
-            //     YCoord = node.YCoord,
-            //     ZCoord = node.ZCoord
-            // };
+            nodeComponent.NodeData = new Node
+            {
+                Name = node.Name,
+                Function = node.Function,
+                ConnectedTo = new List<string>(node.ConnectedTo),
+                XCoord= node.XCoord,
+                YCoord = node.YCoord,
+                ZCoord = node.ZCoord
+            };
+            
+            spheres.Add(sphere);
+
         }
+
     }
 
     void CreateConnectionLines()
     {
         foreach (GameObject sphere in spheres)
-        {
-            List<GameObject> closestSpheres = FindClosestSpheres(sphere, 3);
-            foreach (GameObject closestSphere in closestSpheres)
-            {
-                CreateLine(sphere, closestSphere);
+        {   
+            NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
+            Debug.Log($"NODE {nodeComponent.Name}");
+            foreach (string connectedNodeName in nodeComponent.ConnectedTo)
+            {   
+                Debug.Log($"COOONECT {connectedNodeName}");
+                GameObject connectedSphere = FindSphere(connectedNodeName);
+                if (connectedSphere != null)
+                {   
+                    Debug.Log($"MAKDE LINE");
+                    CreateLine(sphere, connectedSphere);
+                }
             }
         }
+    }
+
+    private GameObject FindSphere(string nodeName)
+    {
+        foreach (var sphere in spheres)
+        {
+            NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
+            if (nodeComponent.Name == nodeName.TrimStart())
+            {
+                return sphere;
+            }
+        }
+        return null;
     }
 
     void SaveLineInitialPositions()
