@@ -1,21 +1,30 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 
 public class SphereRandomGenerator : MonoBehaviour
 {
-
     public float lineWidth = 0.7f;
     public GameObject spherePrefab;
     public Material lineMaterial;
+
+    public GameObject displayObj;
+    public TMP_Text nameTextDisplay;
+    public TMP_Text functionTextDisplay;
+    public TMP_Text coordsTextDisplay;
+    public TMP_Text neighborsTextDisplay;
+    public RectTransform buttonContainer; // Assign your UI panel for buttons in the Unity Editor
+    public Button buttonPrefab; // Assign your UI button prefab in the Unity Editor
 
     private List<GameObject> spheres = new List<GameObject>();
     private List<Node> nodes = new List<Node>();
     private List<LineRenderer> lines = new List<LineRenderer>();
     private GameObject structure;
+    private GameObject selectedSphere;
 
     private List<Vector3> lineInitialPositions = new List<Vector3>();
-
 
     // Node class to hold data for each node
     public class Node
@@ -28,20 +37,18 @@ public class SphereRandomGenerator : MonoBehaviour
         public int ZCoord;
     }
 
-
     void Start()
     {
         structure = new GameObject("Structure");
-        structure.AddComponent<RotateAndZoom>();  // Add your custom script here
+        structure.AddComponent<RotateAndZoom>();
         GenerateNodesFromData();
         GenerateSpheres();
         CreateConnectionLines();
         SaveLineInitialPositions();
     }
 
-
-
-    void GenerateNodesFromData(){
+    void GenerateNodesFromData()
+    {
         string fileName = "dataNodesCoords";
 
         // Load the text file from the Resources folder
@@ -78,7 +85,6 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
 
-
     void GenerateSpheres()
     {
         foreach (Node node in nodes)
@@ -87,21 +93,14 @@ public class SphereRandomGenerator : MonoBehaviour
             Vector3 position = new Vector3(node.XCoord, node.YCoord, node.ZCoord);
             GameObject sphere = Instantiate(spherePrefab, position, Quaternion.identity, structure.transform);
 
-
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
 
-            // shows val on console
             nodeComponent.Name = node.Name;
             nodeComponent.Function = node.Function;
             nodeComponent.XCoord = node.XCoord;
             nodeComponent.YCoord = node.YCoord;
             nodeComponent.ZCoord = node.ZCoord;
-
-            nodeComponent.ConnectedTo = new List<string>();
-            // Add connected nodes to the ConnectedTo list
-            nodeComponent.ConnectedTo.AddRange(node.ConnectedTo);
-
-
+            nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
 
             // Store the Node data in the NodeComponent
             nodeComponent.NodeData = new Node
@@ -109,30 +108,25 @@ public class SphereRandomGenerator : MonoBehaviour
                 Name = node.Name,
                 Function = node.Function,
                 ConnectedTo = new List<string>(node.ConnectedTo),
-                XCoord= node.XCoord,
+                XCoord = node.XCoord,
                 YCoord = node.YCoord,
                 ZCoord = node.ZCoord
             };
-            
+
             spheres.Add(sphere);
-
         }
-
     }
 
     void CreateConnectionLines()
     {
         foreach (GameObject sphere in spheres)
-        {   
+        {
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
-            Debug.Log($"NODE {nodeComponent.Name}");
             foreach (string connectedNodeName in nodeComponent.ConnectedTo)
-            {   
-                Debug.Log($"COOONECT {connectedNodeName}");
+            {
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
-                {   
-                    Debug.Log($"MAKDE LINE");
+                {
                     CreateLine(sphere, connectedSphere);
                 }
             }
@@ -209,150 +203,73 @@ public class SphereRandomGenerator : MonoBehaviour
     void Update()
     {
         UpdateLinePositions();
+        HandleSphereSelection();
+    }
+
+    void HandleSphereSelection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject hitObject = hit.collider.gameObject;
+
+                if (spheres.Contains(hitObject))
+                {
+                    selectedSphere = hitObject;
+                    UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+                }
+            }
+        }
+    }
+
+    void UpdateTextDisplay(Node node)
+    {
+        displayObj.SetActive(true);
+        if (nameTextDisplay != null && functionTextDisplay != null && coordsTextDisplay != null && neighborsTextDisplay != null)
+        {
+            nameTextDisplay.text = $"{node.Name}";
+            functionTextDisplay.text = $"Function: {node.Function}";
+            coordsTextDisplay.text = $"Coords: ({node.XCoord}, {node.YCoord}, {node.ZCoord})";
+
+            // Display neighboring nodes
+            neighborsTextDisplay.text = "Neighbors: " + string.Join(", ", node.ConnectedTo.ToArray());
+
+            // Create buttons for neighboring nodes
+            CreateNeighborButtons(node);
+        }
+    }
+
+    void CreateNeighborButtons(Node node)
+    {
+        // Clear existing buttons
+        foreach (Transform child in buttonContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create buttons for each neighboring node
+        foreach (string neighborName in node.ConnectedTo)
+        {
+            Button neighborButton = Instantiate(buttonPrefab, buttonContainer);
+            neighborButton.GetComponentInChildren<TMP_Text>().text = neighborName;
+
+            // Add a click event to the button
+            neighborButton.onClick.AddListener(() => GoToNeighborNode(neighborName));
+        }
+    }
+
+    void GoToNeighborNode(string neighborName)
+    {
+        // Find and select the sphere corresponding to the clicked neighbor node
+        GameObject neighborSphere = FindSphere(neighborName);
+        if (neighborSphere != null)
+        {
+            selectedSphere = neighborSphere;
+            UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+        }
     }
 }
-
-
-
-
-
-
-
-// using UnityEngine;
-// using System.Collections.Generic;
-// using System.IO;
-
-// public class SphereRandomGenerator : MonoBehaviour
-// {
-//     public int numSpheres = 50;
-//     public float randomRange = 10.0f;
-//     public float lineWidth = 0.1f;
-//     public GameObject spherePrefab;
-//     public Material lineMaterial;
-
-//     private List<GameObject> spheres = new List<GameObject>();
-//     private List<LineRenderer> lines = new List<LineRenderer>();
-//     private GameObject structure;
-
-//     private List<Vector3> lineInitialPositions = new List<Vector3>();
-
-//     void Start()
-//     {
-//         structure = new GameObject("Structure");
-//         structure.AddComponent<RotateAndZoom>();  // Add your custom script here
-//         GenerateRandomSpheres();
-//         CreateConnectionLines();
-//         SaveLineInitialPositions();
-//     }
-
-//     void GenerateRandomSpheres()
-//     {
-//         string fileName = "dataNodesCoords";
-
-//         // Load the text file from the Resources folder
-//         TextAsset textAsset = Resources.Load<TextAsset>(fileName);
-//         if (textAsset != null)
-//         {
-//             using (StringReader reader = new StringReader(textAsset.text))
-//             {   
-//                 // skips first line
-//                 reader.ReadLine();
-
-//                 // reads rest of the lines
-//                 while (reader.Peek() != -1)
-//                 {
-//                     string line = reader.ReadLine();
-//                     string[] values = line.Split(',');
-//                     Vector3 randomPosition = new Vector3(int.Parse(values[3]), int.Parse(values[4]), int.Parse(values[5]));
-
-//                     GameObject sphere = Instantiate(spherePrefab, randomPosition, Quaternion.identity, structure.transform);
-//                     spheres.Add(sphere);
-
-//                 }
-//             }
-//         }
-//         else
-//         {
-//             Debug.LogError($"Error loading CSV file: {fileName}");
-//         }
-        
-//     }
-
-//     void CreateConnectionLines()
-//     {
-//         foreach (GameObject sphere in spheres)
-//         {
-//             List<GameObject> closestSpheres = FindClosestSpheres(sphere, 3);
-//             foreach (GameObject closestSphere in closestSpheres)
-//             {
-//                 CreateLine(sphere, closestSphere);
-//             }
-//         }
-//     }
-
-//     void SaveLineInitialPositions()
-//     {
-//         foreach (LineRenderer lineRenderer in lines)
-//         {
-//             lineInitialPositions.Add(lineRenderer.GetPosition(0));
-//             lineInitialPositions.Add(lineRenderer.GetPosition(1));
-//         }
-//     }
-
-//     void UpdateLinePositions()
-//     {
-//         int index = 0;
-//         foreach (LineRenderer lineRenderer in lines)
-//         {
-//             Vector3 initialStartPos = lineInitialPositions[index++];
-//             Vector3 initialEndPos = lineInitialPositions[index++];
-//             Vector3 newStartPos = structure.transform.TransformPoint(initialStartPos);
-//             Vector3 newEndPos = structure.transform.TransformPoint(initialEndPos);
-
-//             lineRenderer.SetPosition(0, newStartPos);
-//             lineRenderer.SetPosition(1, newEndPos);
-//         }
-//     }
-
-//     List<GameObject> FindClosestSpheres(GameObject targetSphere, int numSpheres)
-//     {
-//         List<GameObject> closestSpheres = new List<GameObject>();
-
-//         List<GameObject> sortedSpheres = new List<GameObject>(spheres);
-//         sortedSpheres.Remove(targetSphere);
-//         sortedSpheres.Sort((a, b) => Vector3.Distance(targetSphere.transform.position, a.transform.position)
-//                                      .CompareTo(Vector3.Distance(targetSphere.transform.position, b.transform.position)));
-
-//         for (int i = 0; i < Mathf.Min(numSpheres, sortedSpheres.Count); i++)
-//         {
-//             closestSpheres.Add(sortedSpheres[i]);
-//         }
-
-//         return closestSpheres;
-//     }
-
-//     void CreateLine(GameObject startSphere, GameObject endSphere)
-//     {
-//         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-//         lineRenderer.material = lineMaterial;
-//         lineRenderer.startWidth = lineWidth;
-//         lineRenderer.endWidth = lineWidth;
-//         lineRenderer.positionCount = 2;
-//         lineRenderer.SetPosition(0, startSphere.transform.position);
-//         lineRenderer.SetPosition(1, endSphere.transform.position);
-//         lineRenderer.transform.parent = structure.transform;  // Parent the line to the structure
-//         lines.Add(lineRenderer);
-//     }
-
-//     void Update()
-//     {
-//         UpdateLinePositions();
-//     }
-// }
-
-
-
-
-
-
-
