@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// public class Node : MonoBehaviour
-// {
-//     public string name;
-//     public int id;
-//     public int x;
-//     public int y;
-//     public int z;
-//     public List<Node> children;
-// }
 
 public class NodeComponent : MonoBehaviour
 {
@@ -20,6 +11,7 @@ public class NodeComponent : MonoBehaviour
 
 
     public string Name;
+    public string ParentName;
     public string Function;
     public List<string> ConnectedTo;
     public int XCoord;

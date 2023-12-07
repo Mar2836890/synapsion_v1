@@ -1,0 +1,25 @@
+Parent Area,Area,Function,Connected To,X Coordinate,Y Coordinate,Z Coordinate
+Neocortex,Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills", Thalamus; Basal Ganglia; Limbic System; Parietal Lobe,10,20,30
+Neocortex,Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input", Frontal Lobe; Occipital Lobe; Temporal Lobe,15,25,35
+Neocortex,Temporal Lobe,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,20,30,40
+Neocortex,Occipital Lobe,"Visual processing and interpretation", Parietal Lobe; Temporal Lobe,25,35,45
+Metencephalon,Cerebellum,"Coordination of voluntary movements; balance; and posture", Brain Stem; Spinal Cord; Thalamus,5,15,25
+,Brain Stem,"Vital autonomic functions such as breathing; heart rate; and blood pressure", Midbrain; Spinal Cord,0,10,20
+Forebrain,Thalamus,"Sensory relay station; relaying signals between different parts of the brain", Frontal Lobe; Occipital Lobe; Temporal Lobe; Parietal Lobe; Limbic System,5,20,25
+Forebrain,Hypothalamus,"Regulates body temperature; hunger; thirst; and various aspects of the autonomic nervous system", Thalamus; Limbic System,-5,15,30
+Temporal Lobe,Amygdala,"Emotion processing; particularly fear and pleasure responses", Hippocampus; Thalamus; Frontal Lobe; Temporal Lobe; Limbic System,-10,25,35
+Temporal Lobe,Hippocampus,"Formation of new memories and spatial navigation", Amygdala; Thalamus; Limbic System,-15,30,40
+Telencephalon,Basal Ganglia,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,0,25,20
+Neocortex,Cingulate Cortex,"Emotional and cognitive processing; attention; and autonomic functions", Limbic System; Frontal Lobe; Parietal Lobe; Thalamus,-5,30,25
+Frontal lobe,Broca's Area,"Language production and speech", Wernicke's Area; Frontal Lobe; Limbic System,-10,35,30
+Temporal Lobe,Wernicke's Area,"Language comprehension", Broca's Area; Temporal Lobe,-15,40,35
+Frontal lobe,Primary Motor Cortex,"Initiating and controlling voluntary movements", Frontal Lobe; Parietal Lobe; Thalamus,10,10,10
+Parietal Lobe,Primary Somatosensory Cortex,"Processes tactile sensory information; such as touch and pressure",Thalamus,15,15,15
+Frontal Lobe,Prefrontal Cortex,"Higher cognitive functions; decision-making; personality expression; and moderating social behavior", Frontal Lobe; Parietal Lobe; Limbic System; Thalamus,-10,-10,-10
+Temporal Lobe,Limbic System,"Regulation of emotions; memory; and arousal", Frontal Lobe; Temporal Lobe; Hypothalamus; Amygdala; Thalamus; Hippocampus,5,25,30
+,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body; Brain Stem,,0,5,10
+,Midbrain,"Contributes to auditory and visual processing; motor control", Brain Stem; Thalamus; Limbic System,5,15,20
+,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.", Limbic System; Thalamus; Basal Ganglia; Brain Stem; Frontal Lobe; Temporal Lobe; Parietal Lobe,10,10,10
+,Metencephalon, "Primarily responsible for the coordination of voluntary movements; balance; posture; motor learning; integration of sensory information; and plays a role in respiratory control.",Spinal Cord; Brain Stem; Thalamus; Limbic System,20,20,20
+,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem; Limbic System; Thalamus; Hypothalamus, 30,30,30
+,Telencephalon, "The largest part of the brain; is primarily responsible for higher cognitive functions; including perception; voluntary motor control; language; and complex thought processes.", Limbic System; Thalamus; Basal Ganglia; Hypothalamus,40,40,40

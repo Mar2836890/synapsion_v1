@@ -9,6 +9,8 @@ public class SphereRandomGenerator : MonoBehaviour
     public float lineWidth = 0.7f;
     public GameObject spherePrefab;
     public Material lineMaterial;
+    public Color connectColor = Color.white;
+    public Color parentColor = Color.gray;
 
     public GameObject displayObj;
     public TMP_Text nameTextDisplay;
@@ -30,6 +32,7 @@ public class SphereRandomGenerator : MonoBehaviour
     public class Node
     {
         public string Name;
+        public string ParentName;
         public string Function;
         public List<string> ConnectedTo;
         public int XCoord;
@@ -49,7 +52,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
     void GenerateNodesFromData()
     {
-        string fileName = "dataNodesCoords";
+        string fileName = "Main";
 
         // Load the text file from the Resources folder
         TextAsset textAsset = Resources.Load<TextAsset>(fileName);
@@ -67,12 +70,13 @@ public class SphereRandomGenerator : MonoBehaviour
                     // Create a new Node instance and populate its data
                     Node node = new Node
                     {
-                        Name = values[0],
-                        Function = values[1].Trim('"'),
-                        XCoord = int.Parse(values[3]),
-                        YCoord = int.Parse(values[4]),
-                        ZCoord = int.Parse(values[5]),
-                        ConnectedTo = new List<string>(values[2].Split(';')),
+                        Name = values[1],
+                        ParentName = values[0],
+                        Function = values[2].Trim('"'),
+                        XCoord = int.Parse(values[4]),
+                        YCoord = int.Parse(values[5]),
+                        ZCoord = int.Parse(values[6]),
+                        ConnectedTo = new List<string>(values[3].Split(';')),
                     };
 
                     nodes.Add(node);
@@ -96,16 +100,19 @@ public class SphereRandomGenerator : MonoBehaviour
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
 
             nodeComponent.Name = node.Name;
+            nodeComponent.ParentName = node.ParentName;
             nodeComponent.Function = node.Function;
             nodeComponent.XCoord = node.XCoord;
             nodeComponent.YCoord = node.YCoord;
             nodeComponent.ZCoord = node.ZCoord;
             nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
 
+
             // Store the Node data in the NodeComponent
             nodeComponent.NodeData = new Node
             {
                 Name = node.Name,
+                ParentName = node.ParentName,
                 Function = node.Function,
                 ConnectedTo = new List<string>(node.ConnectedTo),
                 XCoord = node.XCoord,
@@ -120,16 +127,29 @@ public class SphereRandomGenerator : MonoBehaviour
     void CreateConnectionLines()
     {
         foreach (GameObject sphere in spheres)
-        {
+        {   
+            // create lines for connected to
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
             foreach (string connectedNodeName in nodeComponent.ConnectedTo)
             {
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
-                {
-                    CreateLine(sphere, connectedSphere);
+                {   
+                    CreateLine(sphere, connectedSphere, connectColor);
                 }
             }
+
+        // create line to parent node, has different color
+            if(nodeComponent.ParentName != " ")
+            {
+                GameObject parentSphere = FindSphere(nodeComponent.ParentName);
+                if (parentSphere != null)
+                {   
+                    Debug.Log("Hello, Unity Console!");
+                    CreateLine(sphere, parentSphere, parentColor);
+                }
+            }
+
         }
     }
 
@@ -170,24 +190,8 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
 
-    List<GameObject> FindClosestSpheres(GameObject targetSphere, int numSpheres)
-    {
-        List<GameObject> closestSpheres = new List<GameObject>();
 
-        List<GameObject> sortedSpheres = new List<GameObject>(spheres);
-        sortedSpheres.Remove(targetSphere);
-        sortedSpheres.Sort((a, b) => Vector3.Distance(targetSphere.transform.position, a.transform.position)
-                                    .CompareTo(Vector3.Distance(targetSphere.transform.position, b.transform.position)));
-
-        for (int i = 0; i < Mathf.Min(numSpheres, sortedSpheres.Count); i++)
-        {
-            closestSpheres.Add(sortedSpheres[i]);
-        }
-
-        return closestSpheres;
-    }
-
-    void CreateLine(GameObject startSphere, GameObject endSphere)
+    void CreateLine(GameObject startSphere, GameObject endSphere, Color connectColor)
     {
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.material = lineMaterial;
@@ -197,6 +201,9 @@ public class SphereRandomGenerator : MonoBehaviour
         lineRenderer.SetPosition(0, startSphere.transform.position);
         lineRenderer.SetPosition(1, endSphere.transform.position);
         lineRenderer.transform.parent = structure.transform;  // Parent the line to the structure
+        Debug.Log($"color line {connectColor}");
+        lineRenderer.startColor = connectColor;
+        lineRenderer.endColor = connectColor;
         lines.Add(lineRenderer);
     }
 
