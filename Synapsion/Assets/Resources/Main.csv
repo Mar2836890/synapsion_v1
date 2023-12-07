@@ -19,7 +19,7 @@ Frontal Lobe,Prefrontal Cortex,"Higher cognitive functions; decision-making; per
 Temporal Lobe,Limbic System,"Regulation of emotions; memory; and arousal", Frontal Lobe; Temporal Lobe; Hypothalamus; Amygdala; Thalamus; Hippocampus,5,25,30
 ,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body; Brain Stem,,0,5,10
 ,Midbrain,"Contributes to auditory and visual processing; motor control", Brain Stem; Thalamus; Limbic System,5,15,20
-,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.", Limbic System; Thalamus; Basal Ganglia; Brain Stem; Frontal Lobe; Temporal Lobe; Parietal Lobe,10,10,10
-,Metencephalon, "Primarily responsible for the coordination of voluntary movements; balance; posture; motor learning; integration of sensory information; and plays a role in respiratory control.",Spinal Cord; Brain Stem; Thalamus; Limbic System,20,20,20
-,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem; Limbic System; Thalamus; Hypothalamus, 30,30,30
-,Telencephalon, "The largest part of the brain; is primarily responsible for higher cognitive functions; including perception; voluntary motor control; language; and complex thought processes.", Limbic System; Thalamus; Basal Ganglia; Hypothalamus,40,40,40
+,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.",,10,10,10
+,Metencephalon, "Primarily responsible for the coordination of voluntary movements; balance; posture; motor learning; integration of sensory information; and plays a role in respiratory control.",Spinal Cord; Brain Stem,20,20,20
+,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem, 30,30,30
+,Telencephalon, "The largest part of the brain; is primarily responsible for higher cognitive functions; including perception; voluntary motor control; language; and complex thought processes.",,40,40,40

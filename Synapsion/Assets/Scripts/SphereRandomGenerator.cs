@@ -9,8 +9,8 @@ public class SphereRandomGenerator : MonoBehaviour
     public float lineWidth = 0.7f;
     public GameObject spherePrefab;
     public Material lineMaterial;
-    public Color connectColor = Color.white;
-    public Color parentColor = Color.gray;
+    public Color color1 = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+    public Color color2 = Color.gray;
 
     public GameObject displayObj;
     public TMP_Text nameTextDisplay;
@@ -135,7 +135,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
                 {   
-                    CreateLine(sphere, connectedSphere, connectColor);
+                    CreateLine(sphere, connectedSphere, color1);
                 }
             }
 
@@ -146,7 +146,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 if (parentSphere != null)
                 {   
                     Debug.Log("Hello, Unity Console!");
-                    CreateLine(sphere, parentSphere, parentColor);
+                    CreateLine(sphere, parentSphere, color2);
                 }
             }
 
@@ -191,9 +191,10 @@ public class SphereRandomGenerator : MonoBehaviour
     }
 
 
-    void CreateLine(GameObject startSphere, GameObject endSphere, Color connectColor)
+    void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
     {
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+
         lineRenderer.material = lineMaterial;
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
@@ -201,9 +202,8 @@ public class SphereRandomGenerator : MonoBehaviour
         lineRenderer.SetPosition(0, startSphere.transform.position);
         lineRenderer.SetPosition(1, endSphere.transform.position);
         lineRenderer.transform.parent = structure.transform;  // Parent the line to the structure
-        Debug.Log($"color line {connectColor}");
-        lineRenderer.startColor = connectColor;
-        lineRenderer.endColor = connectColor;
+        lineRenderer.material.color = color;
+
         lines.Add(lineRenderer);
     }
 
