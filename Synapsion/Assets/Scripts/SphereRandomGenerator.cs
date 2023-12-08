@@ -9,9 +9,13 @@ public class SphereRandomGenerator : MonoBehaviour
     public float lineWidth = 0.7f;
     public GameObject spherePrefab;
     public Material lineMaterial;
-    public Color color1 = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+    public Color color1 = Color.red;
     public Color color2 = Color.gray;
-
+    public List<Color> sphereColors = new List<Color> { new Color(1.0f, 0.678f, 0.678f, 1.0f),
+                                                        new Color(0.608f, 0.965f, 1.0f, 1.0f),
+                                                        new Color(0.992f, 1.0f, 0.714f, 1.0f), 
+                                                        new Color(0.792f, 1.0f, 0.749f, 1.0f), 
+                                                        new Color(0.741f, 0.698f, 1.0f, 1.0f)};
     public GameObject displayObj;
     public TMP_Text nameTextDisplay;
     public TMP_Text functionTextDisplay;
@@ -124,6 +128,10 @@ public class SphereRandomGenerator : MonoBehaviour
                 NumEntry = node.NumEntry
             };
 
+            Renderer renderer = sphere.GetComponent<Renderer>();
+            Debug.Log($"HUHUHUHHUHU{node.NumEntry} nanananananan {node.Name}");
+            renderer.material.color = sphereColors[node.NumEntry - 1];
+
             spheres.Add(sphere);
         }
     }
@@ -150,7 +158,6 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject parentSphere = FindSphere(nodeComponent.ParentName);
                 if (parentSphere != null)
                 {   
-                    Debug.Log("Hello, Unity Console!");
                     CreateLine(sphere, parentSphere, color2);
                 }
             }
