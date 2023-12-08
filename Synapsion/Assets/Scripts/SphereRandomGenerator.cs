@@ -38,12 +38,14 @@ public class SphereRandomGenerator : MonoBehaviour
         public int XCoord;
         public int YCoord;
         public int ZCoord;
+        public int NumEntry;
     }
 
     void Start()
     {
         structure = new GameObject("Structure");
-        structure.AddComponent<RotateAndZoom>();
+        structure.transform.parent = transform;  // Set the parent of the structure GameObject
+        // structure.AddComponent<RotateAndZoom>();
         GenerateNodesFromData();
         GenerateSpheres();
         CreateConnectionLines();
@@ -76,7 +78,9 @@ public class SphereRandomGenerator : MonoBehaviour
                         XCoord = int.Parse(values[4]),
                         YCoord = int.Parse(values[5]),
                         ZCoord = int.Parse(values[6]),
+                        NumEntry = int.Parse(values[7]),
                         ConnectedTo = new List<string>(values[3].Split(';')),
+                        
                     };
 
                     nodes.Add(node);
@@ -92,19 +96,18 @@ public class SphereRandomGenerator : MonoBehaviour
     void GenerateSpheres()
     {
         foreach (Node node in nodes)
-        {
-            // Create a sphere for each node
+        {   
             Vector3 position = new Vector3(node.XCoord, node.YCoord, node.ZCoord);
             GameObject sphere = Instantiate(spherePrefab, position, Quaternion.identity, structure.transform);
 
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
-
             nodeComponent.Name = node.Name;
             nodeComponent.ParentName = node.ParentName;
             nodeComponent.Function = node.Function;
             nodeComponent.XCoord = node.XCoord;
             nodeComponent.YCoord = node.YCoord;
             nodeComponent.ZCoord = node.ZCoord;
+            nodeComponent.NumEntry = node.NumEntry;
             nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
 
 
@@ -117,12 +120,14 @@ public class SphereRandomGenerator : MonoBehaviour
                 ConnectedTo = new List<string>(node.ConnectedTo),
                 XCoord = node.XCoord,
                 YCoord = node.YCoord,
-                ZCoord = node.ZCoord
+                ZCoord = node.ZCoord,
+                NumEntry = node.NumEntry
             };
 
             spheres.Add(sphere);
         }
     }
+
 
     void CreateConnectionLines()
     {
@@ -191,21 +196,22 @@ public class SphereRandomGenerator : MonoBehaviour
     }
 
 
-    void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
-    {
-        LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
+{
+    LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
 
-        lineRenderer.material = lineMaterial;
-        lineRenderer.startWidth = lineWidth;
-        lineRenderer.endWidth = lineWidth;
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, startSphere.transform.position);
-        lineRenderer.SetPosition(1, endSphere.transform.position);
-        lineRenderer.transform.parent = structure.transform;  // Parent the line to the structure
-        lineRenderer.material.color = color;
+    lineRenderer.material = lineMaterial;
+    lineRenderer.startWidth = lineWidth;
+    lineRenderer.endWidth = lineWidth;
+    lineRenderer.positionCount = 2;
 
-        lines.Add(lineRenderer);
-    }
+    // Use local positions of the spheres
+    lineRenderer.SetPosition(0, startSphere.transform.localPosition);
+    lineRenderer.SetPosition(1, endSphere.transform.localPosition);
+    lineRenderer.material.color = color;
+
+    lines.Add(lineRenderer);
+}
 
     void Update()
     {

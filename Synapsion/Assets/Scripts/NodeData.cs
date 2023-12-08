@@ -17,6 +17,7 @@ public class NodeComponent : MonoBehaviour
     public int XCoord;
     public int YCoord;
     public int ZCoord;
+    public int NumEntry;
 
     public SphereRandomGenerator.Node NodeData { get; set; }
 
