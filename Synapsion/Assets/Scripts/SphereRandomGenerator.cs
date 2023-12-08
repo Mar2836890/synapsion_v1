@@ -11,6 +11,8 @@ public class SphereRandomGenerator : MonoBehaviour
     public Material lineMaterial;
     public Color color1 = Color.red;
     public Color color2 = Color.gray;
+    
+    // 1 blue, 2 red, 3 yellow, 4 green, 5 purple
     public List<Color> sphereColors = new List<Color> { new Color(1.0f, 0.678f, 0.678f, 1.0f),
                                                         new Color(0.608f, 0.965f, 1.0f, 1.0f),
                                                         new Color(0.992f, 1.0f, 0.714f, 1.0f), 
@@ -129,7 +131,6 @@ public class SphereRandomGenerator : MonoBehaviour
             };
 
             Renderer renderer = sphere.GetComponent<Renderer>();
-            Debug.Log($"HUHUHUHHUHU{node.NumEntry} nanananananan {node.Name}");
             renderer.material.color = sphereColors[node.NumEntry - 1];
 
             spheres.Add(sphere);
@@ -260,6 +261,7 @@ void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
 
             // Create buttons for neighboring nodes
             CreateNeighborButtons(node);
+
         }
     }
 
@@ -276,6 +278,7 @@ void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
         {
             Button neighborButton = Instantiate(buttonPrefab, buttonContainer);
             neighborButton.GetComponentInChildren<TMP_Text>().text = neighborName;
+            neighborButton.GetComponentInChildren<TMP_Text>().color = Color.white;
 
             // Add a click event to the button
             neighborButton.onClick.AddListener(() => GoToNeighborNode(neighborName));
