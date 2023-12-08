@@ -462,10 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d73d9ccfc6f45adbfd865ec1da07e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  object1: {fileID: 335557956}
-  object2: {fileID: 1278689724}
-  rotationSpeed: 5
-  zoomSpeed: 2
 --- !u!4 &523900643
 Transform:
   m_ObjectHideFlags: 0

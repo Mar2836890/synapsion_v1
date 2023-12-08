@@ -3,7 +3,12 @@ guid: 53644b409a812904b8ec4e5b45cde82a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BRAIN_TEXTURE_blinn2
+    second: {fileID: 2100000, guid: 99e4acdd6ef264fdbaf39c3e31c51e43, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +29,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -90,7 +95,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 15
+    globalScale: 1500
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
