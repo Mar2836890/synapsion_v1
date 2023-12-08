@@ -14,9 +14,9 @@ public class NodeComponent : MonoBehaviour
     public string ParentName;
     public string Function;
     public List<string> ConnectedTo;
-    public int XCoord;
-    public int YCoord;
-    public int ZCoord;
+    public float XCoord;
+    public float YCoord;
+    public float ZCoord;
     public int NumEntry;
 
     public SphereRandomGenerator.Node NodeData { get; set; }

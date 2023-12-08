@@ -35,9 +35,9 @@ public class SphereRandomGenerator : MonoBehaviour
         public string ParentName;
         public string Function;
         public List<string> ConnectedTo;
-        public int XCoord;
-        public int YCoord;
-        public int ZCoord;
+        public float XCoord;
+        public float YCoord;
+        public float ZCoord;
         public int NumEntry;
     }
 
@@ -75,9 +75,9 @@ public class SphereRandomGenerator : MonoBehaviour
                         Name = values[1],
                         ParentName = values[0],
                         Function = values[2].Trim('"'),
-                        XCoord = int.Parse(values[4]),
-                        YCoord = int.Parse(values[5]),
-                        ZCoord = int.Parse(values[6]),
+                        XCoord = float.Parse(values[4]),
+                        YCoord = float.Parse(values[5]),
+                        ZCoord = float.Parse(values[6]),
                         NumEntry = int.Parse(values[7]),
                         ConnectedTo = new List<string>(values[3].Split(';')),
                         

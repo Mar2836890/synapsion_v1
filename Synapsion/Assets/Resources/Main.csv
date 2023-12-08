@@ -1,25 +1,24 @@
 Parent Area,Area,Function,Connected To,X Coordinate,Y Coordinate,Z Coordinate,Num entry
-,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body; Brain Stem,,50,50,50,0
-,Midbrain,"Contributes to auditory and visual processing; motor control", Brain Stem; Thalamus; Limbic System,10,10,10,0
-,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.",,20,-20,20,0
-,Metencephalon, "Primarily responsible for the coordination of voluntary movements; balance; posture; motor learning; integration of sensory information; and plays a role in respiratory control.",Spinal Cord; Brain Stem,20,20,20,0
-,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem, 30,30,30,0
-,Telencephalon, "The largest part of the brain; is primarily responsible for higher cognitive functions; including perception; voluntary motor control; language; and complex thought processes.",,40,40,40,0
-,Brain Stem,"Vital autonomic functions such as breathing; heart rate; and blood pressure", Midbrain; Spinal Cord,-50,-50,-50,0
-Neocortex,Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills", Thalamus; Basal Ganglia; Limbic System; Parietal Lobe,0,0,0,1
-Neocortex,Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input", Frontal Lobe; Occipital Lobe; Temporal Lobe,0,0,0,2
-Neocortex,Temporal Lobe,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,0,0,0,3
-Neocortex,Occipital Lobe,"Visual processing and interpretation", Parietal Lobe; Temporal Lobe,0,0,0,4
-Neocortex,Cingulate Cortex,"Emotional and cognitive processing; attention; and autonomic functions", Limbic System; Frontal Lobe; Parietal Lobe; Thalamus,0,0,0,5
-Metencephalon,Cerebellum,"Coordination of voluntary movements; balance; and posture", Brain Stem; Spinal Cord; Thalamus,0,0,0,1
-Forebrain,Thalamus,"Sensory relay station; relaying signals between different parts of the brain", Frontal Lobe; Occipital Lobe; Temporal Lobe; Parietal Lobe; Limbic System,0,0,0,1
-Forebrain,Hypothalamus,"Regulates body temperature; hunger; thirst; and various aspects of the autonomic nervous system", Thalamus; Limbic System,0,0,0,2
-Temporal Lobe,Amygdala,"Emotion processing; particularly fear and pleasure responses", Hippocampus; Thalamus; Frontal Lobe; Temporal Lobe; Limbic System,0,0,0,1
-Temporal Lobe,Hippocampus,"Formation of new memories and spatial navigation", Amygdala; Thalamus; Limbic System,0,0,0,2
-Temporal Lobe,Wernicke's Area,"Language comprehension", Broca's Area; Temporal Lobe,0,0,0,3
-Temporal Lobe,Limbic System,"Regulation of emotions; memory; and arousal", Frontal Lobe; Temporal Lobe; Hypothalamus; Amygdala; Thalamus; Hippocampus,0,0,0,4
-Telencephalon,Basal Ganglia,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,0,0,0,1
-Frontal lobe,Broca's Area,"Language production and speech", Wernicke's Area; Frontal Lobe; Limbic System,0,0,0,1
-Frontal lobe,Primary Motor Cortex,"Initiating and controlling voluntary movements", Frontal Lobe; Parietal Lobe; Thalamus,0,0,0,2
-Frontal Lobe,Prefrontal Cortex,"Higher cognitive functions; decision-making; personality expression; and moderating social behavior", Frontal Lobe; Parietal Lobe; Limbic System; Thalamus,0,0,0,3
-Parietal Lobe,Primary Somatosensory Cortex,"Processes tactile sensory information; such as touch and pressure",Thalamus,0,0,0,1
+,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body; Brain Stem,,6.24,-16.6,0,0
+,Midbrain,"Contributes to auditory and visual processing; motor control", Brain Stem; Thalamus; Limbic System,1.06,-1.92,0,0
+,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.",,-3.6,10.12,0,0
+,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem, -0.03,6.62,0,0
+,Brain Stem,"Vital autonomic functions such as breathing; heart rate; and blood pressure", Midbrain; Spinal Cord,2.44,-7.98,0,0
+,Basal Ganglia L,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,-1.99,3.63,6.33,1
+,Basal Ganglia R,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,-1.99,3.63,-6.33,1
+,Cerebellum,"Coordination of voluntary movements; balance; and posture", Brain Stem; Spinal Cord; Thalamus,7.08,-5.97,0,1
+Neocortex,Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills", Thalamus; Basal Ganglia R; Basal Ganglia L; Limbic System; Parietal Lobe,-9.4,5.5,0,1
+Neocortex,Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input", Frontal Lobe; Occipital Lobe; Temporal Lobe L; Temporal Lobe R,3.1,9,0,2
+Neocortex,Temporal Lobe L,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,-3.12,-2.86,8.19,3
+Neocortex,Temporal Lobe R,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,-3.12,-2.86,-8.19,3
+Neocortex,Occipital Lobe,"Visual processing and interpretation", Parietal Lobe; Temporal Lobe L; Temporal Lobe R,14.75,-1.08,0,4
+Neocortex,Cingulate Cortex,"Emotional and cognitive processing; attention; and autonomic functions", Limbic System; Frontal Lobe; Parietal Lobe; Thalamus,-6.24,5.36,0,5
+Forebrain,Thalamus,"Sensory relay station; relaying signals between different parts of the brain", Frontal Lobe; Occipital Lobe; Temporal Lobe L; Temporal Lobe R; Parietal Lobe; Limbic System,0.97,0.47,0,1
+Forebrain,Hypothalamus,"Regulates body temperature; hunger; thirst; and various aspects of the autonomic nervous system", Thalamus; Limbic System,-2.17,-1.26,0,2
+Temporal Lobe L,Amygdala L,"Emotion processing; particularly fear and pleasure responses",Thalamus; Frontal Lobe; Temporal Lobe L; Limbic System,-4.25,-1.49,4.51,1
+Temporal Lobe L,Wernicke's Area L,"Language comprehension", Broca's Area L; Temporal Lobe L,8.91,0.8,8.37,3
+Frontal lobe,Broca's Area L,"Language production and speech", Wernicke's Area L; Frontal Lobe; Limbic System,-10.3,3.7,7.61,1
+Frontal lobe,Broca's Area R,"Language production and speech", Frontal Lobe; Limbic System,-10.3,3.7,-7.61,1
+Frontal lobe,Primary Motor Cortex,"Initiating and controlling voluntary movements", Frontal Lobe; Parietal Lobe; Thalamus,-2.5,7.9,0,2
+Frontal Lobe,Prefrontal Cortex,"Higher cognitive functions; decision-making; personality expression; and moderating social behavior", Frontal Lobe; Parietal Lobe; Limbic System; Thalamus,-10.9,4.4,0,3
+Parietal Lobe,Primary Somatosensory Cortex,"Processes tactile sensory information; such as touch and pressure",Thalamus,1.1,8,0,1
