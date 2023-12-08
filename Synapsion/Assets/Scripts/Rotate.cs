@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class RotateAndZoom : MonoBehaviour
+public class RotateZoomAndMove : MonoBehaviour
 {
     private bool isRotating = false;
+    private bool isMoving = false;
     private Vector3 mouseStartPosition;
-    private float zoomSpeed = 5.0f;
+    private Vector3 objectStartPosition;
+    private float zoomSpeed = 0.3f;
+    private float moveSpeed = 0.1f;
 
     void Update()
     {
@@ -23,6 +26,21 @@ public class RotateAndZoom : MonoBehaviour
             StopRotation();
         }
 
+        if (Input.GetMouseButtonDown(1) && !isMoving)
+        {
+            StartMovement();
+        }
+
+        if (isMoving && Input.GetMouseButton(1))
+        {
+            MoveStructureByMouse();
+        }
+
+        if (Input.GetMouseButtonUp(1) && isMoving)
+        {
+            StopMovement();
+        }
+
         // Zoom with the mouse wheel
         float zoomAmount = Input.GetAxis("Mouse ScrollWheel");
         ZoomStructure(zoomAmount);
@@ -39,7 +57,7 @@ public class RotateAndZoom : MonoBehaviour
         Vector3 mouseDelta = Input.mousePosition - mouseStartPosition;
 
         // Adjust the rotation speed based on your preference
-        float rotationSpeed = 0.1f;
+        float rotationSpeed = 0.2f;
 
         // Invert the mouseDelta values here
         float deltaX = -mouseDelta.x * rotationSpeed;
@@ -58,6 +76,34 @@ public class RotateAndZoom : MonoBehaviour
     void StopRotation()
     {
         isRotating = false;
+    }
+
+    void StartMovement()
+    {
+        isMoving = true;
+        objectStartPosition = transform.position;
+        mouseStartPosition = Input.mousePosition;
+    }
+
+    void MoveStructureByMouse()
+    {
+        Vector3 mouseDelta = Input.mousePosition - mouseStartPosition;
+
+        // Calculate the movement in world space
+        Vector3 moveDirection = new Vector3(mouseDelta.x, mouseDelta.y, 0);
+
+        // Adjust the movement speed based on your preference
+        moveDirection *= moveSpeed;
+
+        // Apply the movement to the object's position
+        transform.position = objectStartPosition + moveDirection;
+    }
+
+
+
+    void StopMovement()
+    {
+        isMoving = false;
     }
 
     void ZoomStructure(float zoomAmount)
