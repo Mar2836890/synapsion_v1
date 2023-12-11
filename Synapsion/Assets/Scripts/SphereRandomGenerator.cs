@@ -25,7 +25,7 @@ public class SphereRandomGenerator : MonoBehaviour
     public TMP_Text neighborsTextDisplay;
     public RectTransform buttonContainer; // Assign your UI panel for buttons in the Unity Editor
     public Button buttonPrefab; // Assign your UI button prefab in the Unity Editor
-
+    private Dictionary<GameObject, Color> originalSphereColors = new Dictionary<GameObject, Color>();
     private List<GameObject> spheres = new List<GameObject>();
     private List<Node> nodes = new List<Node>();
     private List<LineRenderer> lines = new List<LineRenderer>();
@@ -56,6 +56,21 @@ public class SphereRandomGenerator : MonoBehaviour
         GenerateSpheres();
         CreateConnectionLines();
         SaveLineInitialPositions();
+
+
+        Button closeButton = displayObj.GetComponentInChildren<Button>();
+
+        if (closeButton != null)
+        {
+        // Add a click event to the close button to quit the text display
+            closeButton.onClick.AddListener(() => QuitTextDisplay());
+        }
+        else
+        {
+            Debug.LogError("Close button not found in the display object.");
+        }
+
+
     }
 
     void GenerateNodesFromData()
@@ -132,6 +147,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
             Renderer renderer = sphere.GetComponent<Renderer>();
             renderer.material.color = sphereColors[node.NumEntry - 1];
+            
 
             spheres.Add(sphere);
         }
@@ -204,22 +220,22 @@ public class SphereRandomGenerator : MonoBehaviour
     }
 
 
-void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
-{
-    LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+    void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
+    {
+        LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
 
-    lineRenderer.material = lineMaterial;
-    lineRenderer.startWidth = lineWidth;
-    lineRenderer.endWidth = lineWidth;
-    lineRenderer.positionCount = 2;
+        lineRenderer.material = lineMaterial;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.positionCount = 2;
 
-    // Use local positions of the spheres
-    lineRenderer.SetPosition(0, startSphere.transform.localPosition);
-    lineRenderer.SetPosition(1, endSphere.transform.localPosition);
-    lineRenderer.material.color = color;
+        // Use local positions of the spheres
+        lineRenderer.SetPosition(0, startSphere.transform.localPosition);
+        lineRenderer.SetPosition(1, endSphere.transform.localPosition);
+        lineRenderer.material.color = color;
 
-    lines.Add(lineRenderer);
-}
+        lines.Add(lineRenderer);
+    }
 
     void Update()
     {
@@ -238,9 +254,25 @@ void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
             {
                 GameObject hitObject = hit.collider.gameObject;
 
+                // Reset the color of the previously selected sphere
+                if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+                {
+                    selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+                }
+
                 if (spheres.Contains(hitObject))
                 {
                     selectedSphere = hitObject;
+                    Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
+
+                    // Store the original color of the selected sphere
+                    if (!originalSphereColors.ContainsKey(selectedSphere))
+                    {
+                        originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
+                    }
+
+                    // Change the color of the selected sphere
+                    selectedRenderer.material.color = Color.black; // You can set any color you want pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
                     UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
                 }
             }
@@ -261,7 +293,6 @@ void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
 
             // Create buttons for neighboring nodes
             CreateNeighborButtons(node);
-
         }
     }
 
@@ -287,12 +318,40 @@ void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
 
     void GoToNeighborNode(string neighborName)
     {
+        // Reset the color of the previously selected sphere
+        if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+        {
+            selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+        }
+
         // Find and select the sphere corresponding to the clicked neighbor node
         GameObject neighborSphere = FindSphere(neighborName);
         if (neighborSphere != null)
         {
             selectedSphere = neighborSphere;
+            Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
+
+            // Store the original color of the selected sphere
+            if (!originalSphereColors.ContainsKey(selectedSphere))
+            {
+                originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
+            }
+
+            // Change the color of the selected sphere
+            selectedRenderer.material.color = Color.black; // You can set any color you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
         }
+    }
+
+    void QuitTextDisplay()
+    {
+        // Reset the color of the selected sphere when the Quit button (close button) is clicked
+        if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+        {
+            selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+        }
+
+        // Hide the text display
+        displayObj.SetActive(false);
     }
 }
