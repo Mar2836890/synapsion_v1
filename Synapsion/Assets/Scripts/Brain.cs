@@ -1,15 +1,91 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class BrainScript : MonoBehaviour
-{   
-    private GameObject structure;
+public class AlphaSlider : MonoBehaviour
+{
+    public Slider alphaSlider;
+    public GameObject prefabVariant;
+    // Reference to the shared material
+    public Material sharedMaterial;
+
+    // List of colors for each child object
+    // 1 yellow, 2 green, 3 yellow, 4 red, 5 yellow, 6 blue
+    public List<Color> childColors = new List<Color> {
+        new Color(0.992f, 1.0f, 0.714f, 0.13f),
+        new Color(0.792f, 1.0f, 0.749f, 0.13f),
+        new Color(0.992f, 1.0f, 0.714f, 0.13f),
+        new Color(0.608f, 0.965f, 1.0f, 0.13f),
+        new Color(0.992f, 1.0f, 0.714f, 0.13f),
+        new Color(1.0f, 0.678f, 0.678f, 0.13f),
+    };
+
     void Start()
     {
-        // Set the position to (0, 0, 0) to center the model
-        transform.position = Vector3.zero;
-        // structure = new GameObject("Structure");
-        // structure.AddComponent<RotateAndZoom>();
+        // Add a listener to the slider to respond to changes
+        alphaSlider.onValueChanged.AddListener(OnAlphaSliderChanged);
+        ChangeColor();
+    }
+
+    void ChangeColor() // Removed semicolon here
+    {
+        if (childColors.Count != transform.childCount)
+        {
+            Debug.LogError("Number of child colors does not match the number of children.");
+            return;
+        }
+
+        // Apply colors to each child object
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+
+            // Create a new material instance for each child
+            Material childMaterial = new Material(sharedMaterial);
+
+            // Set the color for the child material
+            childMaterial.color = childColors[i];
+
+            // Apply the material to the child object
+            Renderer renderer = child.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.material = childMaterial;
+            }
+            else
+            {
+                Debug.LogWarning("Child object does not have a Renderer component.");
+            }
+        }
+    }
+
+    void OnAlphaSliderChanged(float alphaValue)
+    {
+        // Iterate through the children of the prefab variant
+        for (int j = 0; j < transform.childCount; j++)
+        {   
+            Transform child = transform.GetChild(j);
+
+            Renderer renderer = child.GetComponent<Renderer>();
+
+            // Check if the object has a Renderer component
+            if (renderer != null)
+            {
+                // Use sharedMaterials instead of materials
+                Material[] materials = renderer.sharedMaterials;
+
+                // Iterate through the materials of the Renderer
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    // Get the current material
+                    Material material = materials[i];
+
+                    // Set the alpha value of the material's color
+                    Color currentColor = material.color;
+                    currentColor.a = alphaValue;
+                    material.color = currentColor;
+                }
+            }
+        }
     }
 }

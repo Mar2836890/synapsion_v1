@@ -3,12 +3,7 @@ guid: 53644b409a812904b8ec4e5b45cde82a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BRAIN_TEXTURE_blinn2
-    second: {fileID: 2100000, guid: 809e6ad24cf8b4dc593f125769f90b8e, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
