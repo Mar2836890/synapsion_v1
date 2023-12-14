@@ -275,9 +275,6 @@ public class SphereRandomGenerator : MonoBehaviour
                         originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
                     }
 
-                    // Change the color of the selected sphere
-                    selectedRenderer.material.color = Color.white; // You can set any color you want
-
                     // Get or add the Outline component
                     selectedOutline = selectedSphere.GetComponent<Outline>();
                     if (selectedOutline == null)
@@ -359,9 +356,6 @@ public class SphereRandomGenerator : MonoBehaviour
             {
                 originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
             }
-
-            // Change the color of the selected sphere
-            selectedRenderer.material.color = Color.black; // You can set any color you want
 
             // Get or add the Outline component
             selectedOutline = selectedSphere.GetComponent<Outline>();

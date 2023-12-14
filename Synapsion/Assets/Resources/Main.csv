@@ -1,5 +1,5 @@
 Parent Area,Area,Function,Connected To,X Coordinate,Y Coordinate,Z Coordinate,Num entry
-,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body; Brain Stem,,6.24,-16.6,0,3
+,Spinal Cord,Conduit for nerve signals between the brain and the rest of the body, Brain Stem,6.24,-16.6,0,3
 ,Midbrain,"Contributes to auditory and visual processing; motor control", Brain Stem; Thalamus; Limbic System,1.06,-1.92,0,3
 ,Neocortex,"The neocortex; a crucial brain region; orchestrates cognitive functions; motor skills; sensory processing; language; memory; and emotional regulation.",,-3.6,10.12,0,5
 ,Forebrain, "The forebrain is primarily responsible for higher cognitive functions; including sensory processing; emotional regulation; memory; and complex decision-making.", Midbrain; Brain Stem, -0.03,6.62,0,5
@@ -11,7 +11,7 @@ Forebrain,Limbic System,"Regulation of emotions; memory; and arousal", Frontal L
 Neocortex,Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills", Thalamus; Basal Ganglia R; Basal Ganglia L; Limbic System; Parietal Lobe,-9.4,5.5,0,5
 Neocortex,Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input", Frontal Lobe; Occipital Lobe; Temporal Lobe L; Temporal Lobe R,3.1,9,0,5
 Neocortex,Temporal Lobe L,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,-3.12,-2.86,8.19,2
-Neocortex,Temporal Lobe R,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,-3.12,-2.86,-8.19,3
+Neocortex,Temporal Lobe R,"Auditory processing; language comprehension; memory; and emotion", Frontal Lobe; Parietal Lobe; Occipital Lobe; Limbic System,-3.12,-2.86,-8.19,1
 Neocortex,Occipital Lobe,"Visual processing and interpretation", Parietal Lobe; Temporal Lobe L; Temporal Lobe R,14.75,-1.08,0,5
 Neocortex,Cingulate Cortex,"Emotional and cognitive processing; attention; and autonomic functions", Limbic System; Frontal Lobe; Parietal Lobe; Thalamus,-6.24,5.36,0,5
 Limbic System,Thalamus,"Sensory relay station; relaying signals between different parts of the brain", Frontal Lobe; Occipital Lobe; Temporal Lobe L; Temporal Lobe R; Parietal Lobe; Limbic System,0.97,0.47,0,3
