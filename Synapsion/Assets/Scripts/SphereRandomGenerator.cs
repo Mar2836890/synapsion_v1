@@ -272,7 +272,7 @@ public class SphereRandomGenerator : MonoBehaviour
                     }
 
                     // Change the color of the selected sphere
-                    selectedRenderer.material.color = Color.black; // You can set any color you want pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
+                    selectedRenderer.material.color = Color.white; // You can set any color you want
                     UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
                 }
             }
@@ -343,7 +343,7 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
 
-    void QuitTextDisplay()
+    public void QuitTextDisplay()
     {
         // Reset the color of the selected sphere when the Quit button (close button) is clicked
         if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
