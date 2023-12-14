@@ -11,13 +11,19 @@ public class SphereRandomGenerator : MonoBehaviour
     public Material lineMaterial;
     public Color color1 = Color.red;
     public Color color2 = Color.gray;
-    
+
+    public Color highlightColour = Color.white;
+    public float highlightSize = 10f;
+
     // 1 blue, 2 red, 3 yellow, 4 green, 5 purple
-    public List<Color> sphereColors = new List<Color> { new Color(1.0f, 0.678f, 0.678f, 1.0f),
-                                                        new Color(0.608f, 0.965f, 1.0f, 1.0f),
-                                                        new Color(0.992f, 1.0f, 0.714f, 1.0f), 
-                                                        new Color(0.792f, 1.0f, 0.749f, 1.0f), 
-                                                        new Color(0.741f, 0.698f, 1.0f, 1.0f)};
+    public List<Color> sphereColors = new List<Color> {
+        new Color(1.0f, 0.678f, 0.678f, 1.0f),
+        new Color(0.608f, 0.965f, 1.0f, 1.0f),
+        new Color(0.992f, 1.0f, 0.714f, 1.0f),
+        new Color(0.792f, 1.0f, 0.749f, 1.0f),
+        new Color(0.741f, 0.698f, 1.0f, 1.0f)
+    };
+
     public GameObject displayObj;
     public TMP_Text nameTextDisplay;
     public TMP_Text functionTextDisplay;
@@ -31,6 +37,7 @@ public class SphereRandomGenerator : MonoBehaviour
     private List<LineRenderer> lines = new List<LineRenderer>();
     private GameObject structure;
     private GameObject selectedSphere;
+    private Outline selectedOutline; // New variable to store the Outline component of the selected sphere
 
     private List<Vector3> lineInitialPositions = new List<Vector3>();
 
@@ -51,26 +58,22 @@ public class SphereRandomGenerator : MonoBehaviour
     {
         structure = new GameObject("Structure");
         structure.transform.parent = transform;  // Set the parent of the structure GameObject
-        // structure.AddComponent<RotateAndZoom>();
         GenerateNodesFromData();
         GenerateSpheres();
         CreateConnectionLines();
         SaveLineInitialPositions();
 
-
         Button closeButton = displayObj.GetComponentInChildren<Button>();
 
         if (closeButton != null)
         {
-        // Add a click event to the close button to quit the text display
+            // Add a click event to the close button to quit the text display
             closeButton.onClick.AddListener(() => QuitTextDisplay());
         }
         else
         {
             Debug.LogError("Close button not found in the display object.");
         }
-
-
     }
 
     void GenerateNodesFromData()
@@ -101,7 +104,7 @@ public class SphereRandomGenerator : MonoBehaviour
                         ZCoord = float.Parse(values[6]),
                         NumEntry = int.Parse(values[7]),
                         ConnectedTo = new List<string>(values[3].Split(';')),
-                        
+
                     };
 
                     nodes.Add(node);
@@ -117,7 +120,7 @@ public class SphereRandomGenerator : MonoBehaviour
     void GenerateSpheres()
     {
         foreach (Node node in nodes)
-        {   
+        {
             Vector3 position = new Vector3(node.XCoord, node.YCoord, node.ZCoord);
             GameObject sphere = Instantiate(spherePrefab, position, Quaternion.identity, structure.transform);
 
@@ -130,7 +133,6 @@ public class SphereRandomGenerator : MonoBehaviour
             nodeComponent.ZCoord = node.ZCoord;
             nodeComponent.NumEntry = node.NumEntry;
             nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
-
 
             // Store the Node data in the NodeComponent
             nodeComponent.NodeData = new Node
@@ -147,38 +149,34 @@ public class SphereRandomGenerator : MonoBehaviour
 
             Renderer renderer = sphere.GetComponent<Renderer>();
             renderer.material.color = sphereColors[node.NumEntry - 1];
-            
-
             spheres.Add(sphere);
         }
     }
 
-
     void CreateConnectionLines()
     {
         foreach (GameObject sphere in spheres)
-        {   
+        {
             // create lines for connected to
             NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
             foreach (string connectedNodeName in nodeComponent.ConnectedTo)
             {
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
-                {   
+                {
                     CreateLine(sphere, connectedSphere, color1);
                 }
             }
 
-        // create line to parent node, has different color
-            if(nodeComponent.ParentName != " ")
+            // create line to parent node, has different color
+            if (nodeComponent.ParentName != " ")
             {
                 GameObject parentSphere = FindSphere(nodeComponent.ParentName);
                 if (parentSphere != null)
-                {   
+                {
                     CreateLine(sphere, parentSphere, color2);
                 }
             }
-
         }
     }
 
@@ -219,7 +217,6 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
 
-
     void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
     {
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
@@ -254,10 +251,17 @@ public class SphereRandomGenerator : MonoBehaviour
             {
                 GameObject hitObject = hit.collider.gameObject;
 
-                // Reset the color of the previously selected sphere
-                if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+                // Reset the color and outline of the previously selected sphere
+                if (selectedSphere != null)
                 {
-                    selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+                    Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
+                    selectedRenderer.material.color = originalSphereColors[selectedSphere];
+
+                    // Reset the outline width
+                    if (selectedOutline != null)
+                    {
+                        selectedOutline.OutlineWidth = 0f;
+                    }
                 }
 
                 if (spheres.Contains(hitObject))
@@ -273,6 +277,18 @@ public class SphereRandomGenerator : MonoBehaviour
 
                     // Change the color of the selected sphere
                     selectedRenderer.material.color = Color.white; // You can set any color you want
+
+                    // Get or add the Outline component
+                    selectedOutline = selectedSphere.GetComponent<Outline>();
+                    if (selectedOutline == null)
+                    {
+                        selectedOutline = selectedSphere.AddComponent<Outline>();
+                    }
+
+                    // Set the outline width for the selected sphere
+                    selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
+                    selectedOutline.OutlineColor = highlightColour;
+
                     UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
                 }
             }
@@ -318,10 +334,17 @@ public class SphereRandomGenerator : MonoBehaviour
 
     void GoToNeighborNode(string neighborName)
     {
-        // Reset the color of the previously selected sphere
-        if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+        // Reset the color and outline of the previously selected sphere
+        if (selectedSphere != null)
         {
-            selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+            Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
+            selectedRenderer.material.color = originalSphereColors[selectedSphere];
+
+            // Reset the outline width
+            if (selectedOutline != null)
+            {
+                selectedOutline.OutlineWidth = 0f;
+            }
         }
 
         // Find and select the sphere corresponding to the clicked neighbor node
@@ -339,16 +362,34 @@ public class SphereRandomGenerator : MonoBehaviour
 
             // Change the color of the selected sphere
             selectedRenderer.material.color = Color.black; // You can set any color you want
+
+            // Get or add the Outline component
+            selectedOutline = selectedSphere.GetComponent<Outline>();
+            if (selectedOutline == null)
+            {
+                selectedOutline = selectedSphere.AddComponent<Outline>();
+            }
+
+            // Set the outline width for the selected sphere
+            selectedOutline.OutlineWidth = 10f; // You can set any width you want
+
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
         }
     }
 
     public void QuitTextDisplay()
     {
-        // Reset the color of the selected sphere when the Quit button (close button) is clicked
-        if (selectedSphere != null && originalSphereColors.ContainsKey(selectedSphere))
+        // Reset the color and outline of the selected sphere when the Quit button (close button) is clicked
+        if (selectedSphere != null)
         {
-            selectedSphere.GetComponent<Renderer>().material.color = originalSphereColors[selectedSphere];
+            Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
+            selectedRenderer.material.color = originalSphereColors[selectedSphere];
+
+            // Reset the outline width
+            if (selectedOutline != null)
+            {
+                selectedOutline.OutlineWidth = 0f;
+            }
         }
 
         // Hide the text display
