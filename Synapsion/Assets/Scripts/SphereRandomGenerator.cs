@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using System.Globalization;
 
 public class SphereRandomGenerator : MonoBehaviour
 {
@@ -99,9 +100,9 @@ public class SphereRandomGenerator : MonoBehaviour
                         Name = values[1],
                         ParentName = values[0],
                         Function = values[2].Trim('"'),
-                        XCoord = float.Parse(values[4]),
-                        YCoord = float.Parse(values[5]),
-                        ZCoord = float.Parse(values[6]),
+                        XCoord = float.Parse(values[4], CultureInfo.InvariantCulture),
+                        YCoord = float.Parse(values[5], CultureInfo.InvariantCulture),
+                        ZCoord = float.Parse(values[6], CultureInfo.InvariantCulture),
                         NumEntry = int.Parse(values[7]),
                         ConnectedTo = new List<string>(values[3].Split(';')),
 
