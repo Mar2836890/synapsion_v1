@@ -7,7 +7,7 @@ using System.Globalization;
 
 public class SphereRandomGenerator : MonoBehaviour
 {
-    public float lineWidth = 0.7f;
+    public float lineWidth = 0.11f;
     public GameObject spherePrefab;
     public Material lineMaterial;
     public Color color1 = Color.red;
