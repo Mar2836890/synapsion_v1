@@ -37,6 +37,7 @@ public class SphereRandomGenerator : MonoBehaviour
     private Dictionary<GameObject, Color> originalSphereColors = new Dictionary<GameObject, Color>();
     private List<GameObject> spheres = new List<GameObject>();
     private List<Node> nodes = new List<Node>();
+    public List<string> ListNodeNames = new List<string>();
     private List<LineRenderer> lines = new List<LineRenderer>();
     private GameObject structure;
     private GameObject selectedSphere;
@@ -152,6 +153,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
             Renderer renderer = sphere.GetComponent<Renderer>();
             renderer.material.color = sphereColors[node.NumEntry];
+            ListNodeNames.Add(node.Name);
             spheres.Add(sphere);
         }
     }
@@ -323,13 +325,16 @@ public class SphereRandomGenerator : MonoBehaviour
 
         // Create buttons for each neighboring node
         foreach (string neighborName in node.ConnectedTo)
-        {
-            Button neighborButton = Instantiate(buttonPrefab, buttonContainer);
-            neighborButton.GetComponentInChildren<TMP_Text>().text = neighborName;
-            neighborButton.GetComponentInChildren<TMP_Text>().color = Color.white;
+        {       
+            if (ListNodeNames.Contains(neighborName.TrimStart()))
+            {
+                Button neighborButton = Instantiate(buttonPrefab, buttonContainer);
+                neighborButton.GetComponentInChildren<TMP_Text>().text = neighborName;
+                neighborButton.GetComponentInChildren<TMP_Text>().color = Color.white;
 
-            // Add a click event to the button
-            neighborButton.onClick.AddListener(() => GoToNeighborNode(neighborName));
+                // Add a click event to the button
+                neighborButton.onClick.AddListener(() => GoToNeighborNode(neighborName));
+            }
         }
     }
 
