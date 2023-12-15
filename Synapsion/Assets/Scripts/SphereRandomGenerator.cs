@@ -26,6 +26,7 @@ public class SphereRandomGenerator : MonoBehaviour
     };
 
     public GameObject displayObj;
+    public Image imageComponent;
     public TMP_Text nameTextDisplay;
     public TMP_Text functionTextDisplay;
     public TMP_Text coordsTextDisplay;
@@ -298,6 +299,7 @@ public class SphereRandomGenerator : MonoBehaviour
         displayObj.SetActive(true);
         if (nameTextDisplay != null && functionTextDisplay != null && coordsTextDisplay != null && neighborsTextDisplay != null)
         {
+            imageComponent.color = sphereColors[node.NumEntry - 1];
             nameTextDisplay.text = $"{node.Name}";
             functionTextDisplay.text = $"Function: {node.Function}";
             coordsTextDisplay.text = $"Coords: ({node.XCoord}, {node.YCoord}, {node.ZCoord})";
@@ -366,7 +368,7 @@ public class SphereRandomGenerator : MonoBehaviour
             }
 
             // Set the outline width for the selected sphere
-            selectedOutline.OutlineWidth = 10f; // You can set any width you want
+            selectedOutline.OutlineWidth = 5f; // You can set any width you want
 
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
         }
