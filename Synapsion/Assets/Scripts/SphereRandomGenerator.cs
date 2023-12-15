@@ -19,8 +19,8 @@ public class SphereRandomGenerator : MonoBehaviour
     // 1 blue, 2 red, 3 yellow, 4 green, 5 purple
     public List<Color> sphereColors = new List<Color> {
         Color.black,
-        new Color(1.0f, 0.678f, 0.678f, 1.0f),
         new Color(0.608f, 0.965f, 1.0f, 1.0f),
+        new Color(1.0f, 0.678f, 0.678f, 1.0f),
         new Color(0.992f, 1.0f, 0.714f, 1.0f),
         new Color(0.792f, 1.0f, 0.749f, 1.0f),
         new Color(0.741f, 0.698f, 1.0f, 1.0f)
