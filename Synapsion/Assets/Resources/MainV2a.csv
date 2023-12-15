@@ -1,12 +1,12 @@
 ﻿Parent Area;Area;Function;Connected To;X Coordinate;Y Coordinate;Z Coordinate;Num entry
 Parent Area;Spinal Cord;Conduit for nerve signals between the brain and the rest of the body; Brain Stem;6.24;-16.6;0;3
 Parent Area;Midbrain;Contributes to auditory, visual processing and motor control; Brain Stem, Thalamus, Limbic System;1.06;-1.92;0;3
-Parent Area;Neocortex;The neocortex is a crucial brain region. It orchestrates cognitive functions, motor skills, sensory processing, language, memory, and emotional regulation;;-3.6;10.12;0;4
+Parent Area;Neocortex;The neocortex is a crucial brain region. It orchestrates cognitive functions, motor skills, sensory processing, language, memory, and emotional regulation;;-3.6;10.12;0;5
 Parent Area;Forebrain;The forebrain is primarily responsible for higher cognitive functions, including sensory processing, emotional regulation, memory, and complex decision-making.; Midbrain, Brain Stem;-0.03;6.62;0;5
 Parent Area;Brain Stem;Vital autonomic functions such as breathing, heart rate, and blood pressure; Midbrain, Spinal Cord;2.44;-7.98;0;3
 Parent Area;Basal Ganglia L;Motor control, procedural learning and routine behaviors; Thalamus, Brain Stem, Limbic System;-1.99;3.63;6.33;2
 Parent Area;Basal Ganglia R;Motor control, procedural learning and routine behaviors; Thalamus, Brain Stem, Limbic System;-1.99;3.63;-6.33;1
-Parent Area;Cerebellum;Coordination of voluntary movements,balance and posture; Brain Stem, Spinal Cord, Thalamus;7.08;-5.97;0;3
+Parent Area;Cerebellum;Coordination of voluntary movements,balance and posture; Brain Stem, Spinal Cord, Thalamus;7.08;-5.97;0;4
 Parent Area;Limbic System;Regulation of emotions, memory and arousal; Frontal Lobe, Temporal Lobe, Hypothalamus, Amygdala L, Thalamus;-0.54;2.42;0;3
 Parent Area;Frontal Lobe;Executive functions, motor skills, reasoning, planning, problem-solving, emotions and social skills; Thalamus, Basal Ganglia R, Basal Ganglia L, Limbic System, Parietal Lobe;-9.4;5.5;0;5
 Parent Area;Parietal Lobe;Sensation, perception, spatial awareness and the integration of sensory input; Frontal Lobe, Occipital Lobe, Temporal Lobe L, Temporal Lobe R;3.1;9;0;5
