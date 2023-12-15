@@ -6,7 +6,7 @@ Parent Area,Area,Function,Connected To,X Coordinate,Y Coordinate,Z Coordinate,Nu
 ,Brain Stem,"Vital autonomic functions such as breathing; heart rate; and blood pressure", Midbrain; Spinal Cord,2.44,-7.98,0,3
 ,Basal Ganglia L,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,-1.99,3.63,6.33,2
 ,Basal Ganglia R,"Motor control; procedural learning; and routine behaviors", Thalamus; Brain Stem; Limbic System,-1.99,3.63,-6.33,1
-,Cerebellum,"Coordination of voluntary movements; balance; and posture", Brain Stem; Spinal Cord; Thalamus,7.08,-5.97,0,3
+,Cerebellum,"Coordination of voluntary movements; balance; and posture", Brain Stem; Spinal Cord; Thalamus,7.08,-5.97,0,4
 Forebrain,Limbic System,"Regulation of emotions; memory; and arousal", Frontal Lobe; Temporal Lobe; Hypothalamus; Amygdala L; Thalamus,-0.54,2.42,0,3
 Neocortex,Frontal Lobe,"Executive functions; motor skills; reasoning; planning; problem-solving; emotions; and social skills", Thalamus; Basal Ganglia R; Basal Ganglia L; Limbic System; Parietal Lobe,-9.4,5.5,0,5
 Neocortex,Parietal Lobe,"Sensation; perception; spatial awareness; and the integration of sensory input", Frontal Lobe; Occipital Lobe; Temporal Lobe L; Temporal Lobe R,3.1,9,0,5
