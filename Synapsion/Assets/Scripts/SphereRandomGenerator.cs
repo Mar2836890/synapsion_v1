@@ -18,6 +18,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
     // 1 blue, 2 red, 3 yellow, 4 green, 5 purple
     public List<Color> sphereColors = new List<Color> {
+        Color.black,
         new Color(1.0f, 0.678f, 0.678f, 1.0f),
         new Color(0.608f, 0.965f, 1.0f, 1.0f),
         new Color(0.992f, 1.0f, 0.714f, 1.0f),
@@ -80,7 +81,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
     void GenerateNodesFromData()
     {
-        string fileName = "Main";
+        string fileName = "MainV2a";
 
         // Load the text file from the Resources folder
         TextAsset textAsset = Resources.Load<TextAsset>(fileName);
@@ -93,19 +94,19 @@ public class SphereRandomGenerator : MonoBehaviour
                 while (reader.Peek() != -1)
                 {
                     string line = reader.ReadLine();
-                    string[] values = line.Split(',');
+                    string[] values = line.Split(';');
 
                     // Create a new Node instance and populate its data
                     Node node = new Node
                     {
-                        Name = values[1],
-                        ParentName = values[0],
-                        Function = values[2].Trim('"'),
+                        Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(values[1]),
+                        ParentName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(values[0]),
+                        Function = values[2],
                         XCoord = float.Parse(values[4], CultureInfo.InvariantCulture),
                         YCoord = float.Parse(values[5], CultureInfo.InvariantCulture),
                         ZCoord = float.Parse(values[6], CultureInfo.InvariantCulture),
                         NumEntry = int.Parse(values[7]),
-                        ConnectedTo = new List<string>(values[3].Split(';')),
+                        ConnectedTo = new List<string>(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(values[3]).Split(',')),
 
                     };
 
@@ -150,7 +151,7 @@ public class SphereRandomGenerator : MonoBehaviour
             };
 
             Renderer renderer = sphere.GetComponent<Renderer>();
-            renderer.material.color = sphereColors[node.NumEntry - 1];
+            renderer.material.color = sphereColors[node.NumEntry];
             spheres.Add(sphere);
         }
     }
@@ -171,7 +172,7 @@ public class SphereRandomGenerator : MonoBehaviour
             }
 
             // create line to parent node, has different color
-            if (nodeComponent.ParentName != " ")
+            if (nodeComponent.ParentName != "Parent Area")
             {
                 GameObject parentSphere = FindSphere(nodeComponent.ParentName);
                 if (parentSphere != null)
@@ -299,7 +300,7 @@ public class SphereRandomGenerator : MonoBehaviour
         displayObj.SetActive(true);
         if (nameTextDisplay != null && functionTextDisplay != null && coordsTextDisplay != null && neighborsTextDisplay != null)
         {
-            imageComponent.color = sphereColors[node.NumEntry - 1];
+            imageComponent.color = sphereColors[node.NumEntry];
             nameTextDisplay.text = $"{node.Name}";
             functionTextDisplay.text = $"Function: {node.Function}";
             coordsTextDisplay.text = $"Coords: ({node.XCoord}, {node.YCoord}, {node.ZCoord})";
