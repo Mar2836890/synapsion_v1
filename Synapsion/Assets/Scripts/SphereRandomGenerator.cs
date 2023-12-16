@@ -390,7 +390,6 @@ public class SphereRandomGenerator : MonoBehaviour
             {
                 selectedOutline = selectedSphere.AddComponent<Outline>();
             }
-
             // Set the outline width for the selected sphere
             selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
