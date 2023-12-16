@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -47,6 +48,8 @@ public class SphereRandomGenerator : MonoBehaviour
     // for the search bar
     public TMP_InputField searchInputField;
     public Button searchButton;
+    public GameObject WarningText;
+    public float displayTime = 2f;
 
     // Node class to hold data for each node
     public class Node
@@ -458,8 +461,20 @@ public class SphereRandomGenerator : MonoBehaviour
         else
         {
             // Handle case when the entered node name is not found
-            Debug.Log($"Node with name '{nodeNameToSearchCap}' not found.");
+            Debug.Log($"Node with name '{nodeNameToSearch}' not found.");
+            StartCoroutine(ShowAndHide());
         }
+    }
+    IEnumerator ShowAndHide()
+    {
+        // Show the object
+        WarningText.SetActive(true);
+
+        // Wait for the specified display time
+        yield return new WaitForSeconds(displayTime);
+
+        // Hide the object after the display time has passed
+        WarningText.SetActive(false);
     }
 
 }
