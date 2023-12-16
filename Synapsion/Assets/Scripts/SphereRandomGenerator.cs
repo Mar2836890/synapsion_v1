@@ -42,8 +42,11 @@ public class SphereRandomGenerator : MonoBehaviour
     private GameObject structure;
     private GameObject selectedSphere;
     private Outline selectedOutline; // New variable to store the Outline component of the selected sphere
-
     private List<Vector3> lineInitialPositions = new List<Vector3>();
+
+    // for the search bar
+    public TMP_InputField searchInputField;
+    public Button searchButton;
 
     // Node class to hold data for each node
     public class Node
@@ -78,6 +81,9 @@ public class SphereRandomGenerator : MonoBehaviour
         {
             Debug.LogError("Close button not found in the display object.");
         }
+
+        //search button
+        searchButton.onClick.AddListener(() => SearchNode());
     }
 
     void GenerateNodesFromData()
@@ -243,6 +249,13 @@ public class SphereRandomGenerator : MonoBehaviour
     {
         UpdateLinePositions();
         HandleSphereSelection();
+
+        // Check for enter key press in the search bar
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SearchNode();
+        }
+
     }
 
     void HandleSphereSelection()
@@ -398,4 +411,55 @@ public class SphereRandomGenerator : MonoBehaviour
         // Hide the text display
         displayObj.SetActive(false);
     }
+
+    void SearchNode()
+    {
+        string nodeNameToSearch = searchInputField.text.Trim();
+        string nodeNameToSearchCap = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(nodeNameToSearch);
+        
+        // Find and select the sphere corresponding to the entered node name
+        GameObject foundSphere = FindSphere(nodeNameToSearchCap);
+        if (foundSphere != null)
+        {
+            // Reset the color and outline of the previously selected sphere
+            if (selectedSphere != null)
+            {
+                Renderer prevSelectedRenderer = selectedSphere.GetComponent<Renderer>();
+                prevSelectedRenderer.material.color = originalSphereColors[selectedSphere];
+
+                // Reset the outline width
+                if (selectedOutline != null)
+                {
+                    selectedOutline.OutlineWidth = 0f;
+                }
+            }
+
+            selectedSphere = foundSphere;
+            Renderer newSelectedRenderer = selectedSphere.GetComponent<Renderer>();
+
+            // Store the original color of the selected sphere
+            if (!originalSphereColors.ContainsKey(selectedSphere))
+            {
+                originalSphereColors.Add(selectedSphere, newSelectedRenderer.material.color);
+            }
+
+            // Get or add the Outline component
+            selectedOutline = selectedSphere.GetComponent<Outline>();
+            if (selectedOutline == null)
+            {
+                selectedOutline = selectedSphere.AddComponent<Outline>();
+            }
+
+            // Set the outline width for the selected sphere
+            selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
+
+            UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+        }
+        else
+        {
+            // Handle case when the entered node name is not found
+            Debug.Log($"Node with name '{nodeNameToSearchCap}' not found.");
+        }
+    }
+
 }
