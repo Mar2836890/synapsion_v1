@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
+
 public class RotateZoomAndMove : MonoBehaviour
 {
     private bool isRotating = false;
@@ -13,24 +12,9 @@ public class RotateZoomAndMove : MonoBehaviour
     // Define the rectangular area where actions are allowed (in screen coordinates)
     public Rect allowedArea = new Rect(0.2f, 0.2f, 0.6f, 0.6f);
 
-    private GameObject displayObj; // Reference to the text display object
-    private SphereRandomGenerator sphereRandomGenerator;
-    public GameObject yourTextDisplayGameObject;
-
-    void Start()
-    {
-        // Find the SphereRandomGenerator script on the same GameObject
-        sphereRandomGenerator = GetComponent<SphereRandomGenerator>();
-    }
-
     void Update()
     {
-        if (displayObj == null)
-        {
-            displayObj = yourTextDisplayGameObject;
-        }
-
-        if (allowedArea.Contains(Input.mousePosition) && displayObj != null && !displayObj.activeSelf)
+        if (allowedArea.Contains(Input.mousePosition))
         {
             if (Input.GetMouseButtonDown(0) && !isRotating)
             {
@@ -60,12 +44,6 @@ public class RotateZoomAndMove : MonoBehaviour
             if (Input.GetMouseButtonUp(1) && isMoving)
             {
                 StopMovement();
-            }
-
-            if (IsMouseOverTextDisplay())
-            {
-                // If the mouse is over the text display, prevent rotation, movement, and zoom
-                return;
             }
         }
 
@@ -134,12 +112,6 @@ public class RotateZoomAndMove : MonoBehaviour
 
     void ZoomStructure(float zoomAmount)
     {
-        if (IsMouseOverTextDisplay())
-        {
-            // If the mouse is over the text display, prevent zooming
-            return;
-        }
-
         // Adjust the zoom speed based on your preference
         float zoomFactor = 1.0f + zoomAmount * zoomSpeed;
 
@@ -148,26 +120,5 @@ public class RotateZoomAndMove : MonoBehaviour
 
         // Ensure the scale doesn't go below a certain threshold to avoid issues
         transform.localScale = Vector3.Max(transform.localScale, new Vector3(0.1f, 0.1f, 0.1f));
-    }
-
-    private bool IsMouseOverTextDisplay()
-    {
-        // Check if the mouse is over a UI element
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = Input.mousePosition;
-        EventSystem.current.RaycastAll(eventData, new List<RaycastResult>());
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-
-        // Check if any of the UI elements under the mouse are your text display
-        foreach (RaycastResult result in results)
-        {
-            if (result.gameObject == yourTextDisplayGameObject)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
