@@ -311,7 +311,8 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
     void GoToNeighborNode(string neighborName)
-    {
+    {   
+        lineToggle.isOn = false;
         // Reset the color and outline of the previously selected sphere
         if (selectedSphere != null)
         {
@@ -362,6 +363,7 @@ public class SphereRandomGenerator : MonoBehaviour
         // Hide the text display
         displayObj.SetActive(false);
     }
+
     // toggle code
 
     void OnLineToggleValueChanged(bool isVisible)
