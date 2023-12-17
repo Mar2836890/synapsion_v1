@@ -386,7 +386,6 @@ public class SphereRandomGenerator : MonoBehaviour
 
                 if (startSpherePos == selectedSphere.transform.position || endSpherePos == selectedSphere.transform.position)
                 {   
-                    Debug.Log("A im viabalelellelel");
                     lineRenderer.enabled = isVisible;
                 }
                 else
