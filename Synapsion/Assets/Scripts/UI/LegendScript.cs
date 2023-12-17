@@ -1,26 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class LegendController : MonoBehaviour
 {
     // Reference to the legend GameObject
     public GameObject legendObject;
 
-    // Call this method when the "Show Legend" button is pressed
-    public void ShowLegend()
+    // Call this method when the "Toggle Legend" button is pressed
+    public void ToggleLegend()
     {
         if (legendObject != null)
         {
-            legendObject.SetActive(true);
-        }
-    }
+            // Check if the legend is currently active
+            bool isActive = legendObject.activeSelf;
 
-    // Call this method when the "Close Legend" button is pressed
-    public void CloseLegend()
-    {
-        if (legendObject != null)
-        {
-            legendObject.SetActive(false);
+            // Toggle the visibility of the legend
+            legendObject.SetActive(!isActive);
         }
     }
 }
