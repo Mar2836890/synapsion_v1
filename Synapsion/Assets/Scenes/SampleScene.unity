@@ -1725,6 +1725,7 @@ MonoBehaviour:
     y: 43
     width: 1000
     height: 10000
+  yourTextDisplayGameObject: {fileID: 1925436738}
 --- !u!4 &523900643
 Transform:
   m_ObjectHideFlags: 0
