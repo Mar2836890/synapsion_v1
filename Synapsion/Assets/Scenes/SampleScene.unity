@@ -456,8 +456,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
-    m_HighlightedColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+    m_PressedColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2700,7 +2700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &638961234
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6917,7 +6917,7 @@ MonoBehaviour:
   m_text: "In this program you can explore the main areas and functions of the human
     brain. Different regions and lobes are portrayed as nodes in a connected 3D network.
     The lines represent different relations and connections between the parts. \r\n\r\nPlease
-    note that this is the initial prototype, and a beginner's tutorial is currently
+    note that this is the second prototype, and a beginner's tutorial is currently
     unavailable. We are actively working to incorporate this tutorial and other enhancements.\n\r\nHave
     fun exploring our program, your feedback will be much appreciated!\r\n"
   m_isRightToLeft: 0
