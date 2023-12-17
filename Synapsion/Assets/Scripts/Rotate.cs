@@ -9,36 +9,42 @@ public class RotateZoomAndMove : MonoBehaviour
     private float zoomSpeed = 0.3f;
     private float moveSpeed = 0.1f;
 
+    // Define the rectangular area where actions are allowed (in screen coordinates)
+    public Rect allowedArea = new Rect(0.2f, 0.2f, 0.6f, 0.6f);
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isRotating)
+        if (allowedArea.Contains(Input.mousePosition))
         {
-            StartRotation();
-        }
+            if (Input.GetMouseButtonDown(0) && !isRotating)
+            {
+                StartRotation();
+            }
 
-        if (isRotating && Input.GetMouseButton(0))
-        {
-            RotateStructureByMouse();
-        }
+            if (isRotating && Input.GetMouseButton(0))
+            {
+                RotateStructureByMouse();
+            }
 
-        if (Input.GetMouseButtonUp(0) && isRotating)
-        {
-            StopRotation();
-        }
+            if (Input.GetMouseButtonUp(0) && isRotating)
+            {
+                StopRotation();
+            }
 
-        if (Input.GetMouseButtonDown(1) && !isMoving)
-        {
-            StartMovement();
-        }
+            if (Input.GetMouseButtonDown(1) && !isMoving)
+            {
+                StartMovement();
+            }
 
-        if (isMoving && Input.GetMouseButton(1))
-        {
-            MoveStructureByMouse();
-        }
+            if (isMoving && Input.GetMouseButton(1))
+            {
+                MoveStructureByMouse();
+            }
 
-        if (Input.GetMouseButtonUp(1) && isMoving)
-        {
-            StopMovement();
+            if (Input.GetMouseButtonUp(1) && isMoving)
+            {
+                StopMovement();
+            }
         }
 
         // Zoom with the mouse wheel
@@ -98,8 +104,6 @@ public class RotateZoomAndMove : MonoBehaviour
         // Apply the movement to the object's position
         transform.position = objectStartPosition + moveDirection;
     }
-
-
 
     void StopMovement()
     {
