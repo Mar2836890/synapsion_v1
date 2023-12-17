@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class RotateZoomAndMove : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class RotateZoomAndMove : MonoBehaviour
     private Vector3 objectStartPosition;
     private float zoomSpeed = 0.3f;
     private float moveSpeed = 0.1f;
+
+    // Reference to the information GameObject
+    public GameObject informationObject;
 
     // Define the rectangular area where actions are allowed (in screen coordinates)
     public Rect allowedArea = new Rect(0.2f, 0.2f, 0.6f, 0.6f);
@@ -47,9 +51,38 @@ public class RotateZoomAndMove : MonoBehaviour
             }
         }
 
-        // Zoom with the mouse wheel
-        float zoomAmount = Input.GetAxis("Mouse ScrollWheel");
-        ZoomStructure(zoomAmount);
+        // Check if the cursor is over the informationObject
+        bool isCursorOverInformation = IsCursorOverInformation();
+
+        // Zoom with the mouse wheel only if the cursor is not over the informationObject
+        if (!isCursorOverInformation)
+        {
+            float zoomAmount = Input.GetAxis("Mouse ScrollWheel");
+            ZoomStructure(zoomAmount);
+        }
+    }
+
+    bool IsCursorOverInformation()
+    {
+        // Check if the cursor is over a UI element
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;  // The cursor is over a UI element; don't perform zooming
+        }
+
+        // Raycast from the mouse position to detect if it hits the informationObject
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Adjust the layer mask if necessary to only hit the informationObject
+        int layerMask = LayerMask.GetMask("DisplayLayer");
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            return hit.collider.gameObject == informationObject;
+        }
+
+        return false;
     }
 
     void StartRotation()
@@ -57,7 +90,6 @@ public class RotateZoomAndMove : MonoBehaviour
         isRotating = true;
         mouseStartPosition = Input.mousePosition;
     }
-
     void RotateStructureByMouse()
     {
         Vector3 mouseDelta = Input.mousePosition - mouseStartPosition;
@@ -121,4 +153,6 @@ public class RotateZoomAndMove : MonoBehaviour
         // Ensure the scale doesn't go below a certain threshold to avoid issues
         transform.localScale = Vector3.Max(transform.localScale, new Vector3(0.1f, 0.1f, 0.1f));
     }
+
+
 }
