@@ -40,12 +40,13 @@ public class SphereRandomGenerator : MonoBehaviour
     private GameObject selectedSphere;
     private Outline selectedOutline; // New variable to store the Outline component of the selected sphere
     private List<Vector3> lineInitialPositions = new List<Vector3>();
+    // toggle button
+    public Toggle lineToggle;
     // for the search bar
     public TMP_InputField searchInputField;
     public Button searchButton;
     public GameObject WarningText;
     public float displayTime = 2f;
-
     // Node class to hold data for each node
     public class Node
     {
@@ -78,6 +79,8 @@ public class SphereRandomGenerator : MonoBehaviour
         }
         //search button
         searchButton.onClick.AddListener(() => SearchNode());
+        // toogle button
+        lineToggle.onValueChanged.AddListener(OnLineToggleValueChanged);
     }
     void GenerateNodesFromData()
     {
@@ -267,6 +270,7 @@ public class SphereRandomGenerator : MonoBehaviour
                     selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
                     selectedOutline.OutlineColor = highlightColour;
                     UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+                    lineToggle.isOn = false;
                 }
             }
         }
@@ -353,10 +357,49 @@ public class SphereRandomGenerator : MonoBehaviour
             {
                 selectedOutline.OutlineWidth = 0f;
             }
+            lineToggle.isOn = false;
         }
         // Hide the text display
         displayObj.SetActive(false);
     }
+    // toggle code
+
+    void OnLineToggleValueChanged(bool isVisible)
+    {
+        if (!isVisible || selectedSphere == null)
+        {
+            foreach (LineRenderer lineRenderer in lines)
+            {
+                lineRenderer.enabled = !isVisible;
+            }
+        }
+        else
+        {   
+            foreach (LineRenderer lineRenderer in lines)
+            {   
+                Vector3 startSpherePos = lineRenderer.GetPosition(0);
+                Vector3 endSpherePos = lineRenderer.GetPosition(1);
+
+                // Vector3 worldStartPos = selectedSphere.transform.TransformPoint(startSpherePos);
+                // Vector3 worldEndPos = selectedSphere.transform.TransformPoint(endSpherePos);
+
+
+                if (startSpherePos == selectedSphere.transform.position || endSpherePos == selectedSphere.transform.position)
+                {   
+                    Debug.Log("A im viabalelellelel");
+                    lineRenderer.enabled = isVisible;
+                }
+                else
+                {
+                    lineRenderer.enabled = !isVisible;
+                }
+            }
+        }
+
+    }
+
+
+    // searchbar code
     void SearchNode()
     {
         string nodeNameToSearch = searchInputField.text.Trim();
@@ -390,6 +433,7 @@ public class SphereRandomGenerator : MonoBehaviour
             {
                 selectedOutline = selectedSphere.AddComponent<Outline>();
             }
+
             // Set the outline width for the selected sphere
             selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
@@ -405,12 +449,9 @@ public class SphereRandomGenerator : MonoBehaviour
     {
         // Show the object
         WarningText.SetActive(true);
-
         // Wait for the specified display time
         yield return new WaitForSeconds(displayTime);
-
         // Hide the object after the display time has passed
         WarningText.SetActive(false);
     }
-
 }
