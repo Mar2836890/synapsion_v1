@@ -41,6 +41,10 @@ public class SphereRandomGenerator : MonoBehaviour
     private List<Vector3> lineInitialPositions = new List<Vector3>();
     // toggle button
     public Toggle lineToggle;
+
+    // For brain mode
+    public GameObject BrainModel;
+    public Toggle BrainToggle;
     // for the search bar
     public TMP_InputField searchInputField;
     public Button searchButton;
@@ -80,6 +84,7 @@ public class SphereRandomGenerator : MonoBehaviour
         searchButton.onClick.AddListener(() => SearchNode());
         // toogle button
         lineToggle.onValueChanged.AddListener(OnLineToggleValueChanged);
+        BrainToggle.onValueChanged.AddListener(OnBrainToggleChange);
     }
     void GenerateNodesFromData()
     {
@@ -229,6 +234,23 @@ public class SphereRandomGenerator : MonoBehaviour
             SearchNode();
         }
     }
+
+    // brain mode
+
+
+
+    void OnBrainToggleChange(bool visable)
+    {   
+        if (BrainToggle.isOn == false)
+        {
+            BrainModel.SetActive(true);
+        }
+        else
+        {
+            BrainModel.SetActive(false);
+        }
+    }
+
     void HandleSphereSelection()
     {
         if (Input.GetMouseButtonDown(0))
