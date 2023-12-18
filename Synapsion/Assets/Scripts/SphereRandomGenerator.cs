@@ -37,7 +37,7 @@ public class SphereRandomGenerator : MonoBehaviour
     public List<string> ListNodeNames = new List<string>();
     private List<LineRenderer> lines = new List<LineRenderer>();
     private GameObject structure;
-    private GameObject selectedSphere;
+    public GameObject selectedSphere;
     private Outline selectedOutline; // New variable to store the Outline component of the selected sphere
     private List<Vector3> lineInitialPositions = new List<Vector3>();
     // toggle button
@@ -175,7 +175,7 @@ public class SphereRandomGenerator : MonoBehaviour
             }
         }
     }
-    private GameObject FindSphere(string nodeName)
+    public GameObject FindSphere(string nodeName)
     {
         foreach (var sphere in spheres)
         {
@@ -240,41 +240,59 @@ public class SphereRandomGenerator : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject hitObject = hit.collider.gameObject;
-                // Reset the color and outline of the previously selected sphere
-                if (selectedSphere != null)
-                {
-                    Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
-                    selectedRenderer.material.color = originalSphereColors[selectedSphere];
-                    // Reset the outline width
-                    if (selectedOutline != null)
-                    {
-                        selectedOutline.OutlineWidth = 0f;
-                    }
-                }
-                if (spheres.Contains(hitObject))
-                {
-                    selectedSphere = hitObject;
-                    Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();
-                    // Store the original color of the selected sphere
-                    if (!originalSphereColors.ContainsKey(selectedSphere))
-                    {
-                        originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
-                    }
-                    // Get or add the Outline component
-                    selectedOutline = selectedSphere.GetComponent<Outline>();
-                    if (selectedOutline == null)
-                    {
-                        selectedOutline = selectedSphere.AddComponent<Outline>();
-                    }
-                    // Set the outline width for the selected sphere
-                    selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
-                    selectedOutline.OutlineColor = highlightColour;
-                    UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
-                    lineToggle.isOn = false;
-                }
+                SetSelectedSphere(hitObject);
             }
         }
     }
+
+    void SetSelectedSphere(GameObject newSelectedSphere)
+    {
+        // Reset the color and outline of the previously selected sphere
+        if (selectedSphere != null)
+        {
+            Renderer existingSelectedRenderer = selectedSphere.GetComponent<Renderer>();
+            existingSelectedRenderer.material.color = originalSphereColors[selectedSphere];
+            // Reset the outline width
+            if (selectedOutline != null)
+            {
+                selectedOutline.OutlineWidth = 0f;
+            }
+        }
+
+        selectedSphere = newSelectedSphere;
+        Renderer selectedRenderer = selectedSphere.GetComponent<Renderer>();  // Corrected line
+
+        // Store the original color of the selected sphere
+        if (!originalSphereColors.ContainsKey(selectedSphere))
+        {
+            originalSphereColors.Add(selectedSphere, selectedRenderer.material.color);
+        }
+
+        // Get or add the Outline component
+        selectedOutline = selectedSphere.GetComponent<Outline>();
+        if (selectedOutline == null)
+        {
+            selectedOutline = selectedSphere.AddComponent<Outline>();
+        }
+
+        // Set the outline width for the selected sphere
+        selectedOutline.OutlineWidth = highlightSize;
+        selectedOutline.OutlineColor = highlightColour;
+
+        UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+        lineToggle.isOn = false;
+    }
+
+
+    public void SelectNodeByName(string nodeName)
+    {
+        GameObject selectedSphere = FindSphere(nodeName);
+        if (selectedSphere != null)
+        {
+            SetSelectedSphere(selectedSphere);
+        }
+    }
+
     void UpdateTextDisplay(Node node)
     {
         displayObj.SetActive(true);
