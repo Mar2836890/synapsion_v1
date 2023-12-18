@@ -9,9 +9,8 @@ public class SphereRandomGenerator : MonoBehaviour
 {
     public float lineWidth = 0.11f;
     public GameObject spherePrefab;
-    public Material lineMaterial;
-    public Color color1 = Color.red;
-    public Color color2 = Color.gray;
+    public Material lineMaterialWhite;
+    public Material lineMaterialBlack;
     public Color highlightColour = Color.white;
     public float highlightSize = 10f;
     // 1 red, 2 blue, 3 yellow, 4 green, 5 purple
@@ -161,7 +160,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
                 {
-                    CreateLine(sphere, connectedSphere, color1);
+                    CreateLine(sphere, connectedSphere, lineMaterialWhite);
                 }
             }
             // create line to parent node, has different color
@@ -170,7 +169,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject parentSphere = FindSphere(nodeComponent.ParentName);
                 if (parentSphere != null)
                 {
-                    CreateLine(sphere, parentSphere, color2);
+                    CreateLine(sphere, parentSphere, lineMaterialBlack);
                 }
             }
         }
@@ -208,17 +207,16 @@ public class SphereRandomGenerator : MonoBehaviour
             lineRenderer.SetPosition(1, newEndPos);
         }
     }
-    void CreateLine(GameObject startSphere, GameObject endSphere, Color color)
+    void CreateLine(GameObject startSphere, GameObject endSphere, Material material)
     {
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        lineRenderer.material = lineMaterial;
+        lineRenderer.material = material;
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.positionCount = 2;
         // Use local positions of the spheres
         lineRenderer.SetPosition(0, startSphere.transform.localPosition);
         lineRenderer.SetPosition(1, endSphere.transform.localPosition);
-        lineRenderer.material.color = color;
         lines.Add(lineRenderer);
     }
     void Update()
@@ -382,7 +380,7 @@ public class SphereRandomGenerator : MonoBehaviour
         displayObj.SetActive(false);
     }
 
-    // toggle code
+    // toggle code, to only see lines directly connected to selected sphere
 
     void OnLineToggleValueChanged(bool isVisible)
     {
@@ -399,10 +397,6 @@ public class SphereRandomGenerator : MonoBehaviour
             {   
                 Vector3 startSpherePos = lineRenderer.GetPosition(0);
                 Vector3 endSpherePos = lineRenderer.GetPosition(1);
-
-                // Vector3 worldStartPos = selectedSphere.transform.TransformPoint(startSpherePos);
-                // Vector3 worldEndPos = selectedSphere.transform.TransformPoint(endSpherePos);
-
 
                 if (startSpherePos == selectedSphere.transform.position || endSpherePos == selectedSphere.transform.position)
                 {   
