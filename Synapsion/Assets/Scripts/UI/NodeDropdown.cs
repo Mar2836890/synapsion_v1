@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;  // Added using directive for LINQ
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,9 +18,12 @@ public class NodeDropdown : MonoBehaviour
     void PopulateDropdown()
     {   
         List<string> nodeNames = sphereGenerator.ListNodeNames;
+
+        // Sort the list alphabetically
+        nodeNames = nodeNames.OrderBy(name => name).ToList();
+
         dropdown.ClearOptions();
         dropdown.AddOptions(nodeNames);
-
     }
 
     void OnDropdownValueChanged(int index)
