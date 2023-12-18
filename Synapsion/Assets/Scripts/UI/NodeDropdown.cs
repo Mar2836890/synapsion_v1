@@ -7,7 +7,7 @@ public class NodeDropdown : MonoBehaviour
 {
     public TMP_Dropdown dropdown;  // Reference to the Dropdown UI component
     public SphereRandomGenerator sphereGenerator;  // Reference to the SphereRandomGenerator script
-    
+
     void Start()
     {
         PopulateDropdown();
@@ -19,6 +19,7 @@ public class NodeDropdown : MonoBehaviour
         List<string> nodeNames = sphereGenerator.ListNodeNames;
         dropdown.ClearOptions();
         dropdown.AddOptions(nodeNames);
+
     }
 
     void OnDropdownValueChanged(int index)
