@@ -349,8 +349,7 @@ public class SphereRandomGenerator : MonoBehaviour
         }
     }
     void GoToNeighborNode(string neighborName)
-    {   
-        lineToggle.isOn = false;
+    {       
         // Reset the color and outline of the previously selected sphere
         if (selectedSphere != null)
         {
@@ -382,6 +381,7 @@ public class SphereRandomGenerator : MonoBehaviour
             // Set the outline width for the selected sphere
             selectedOutline.OutlineWidth = 5f; // You can set any width you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+            OnLineToggleValueChanged(true);
         }
     }
     public void QuitTextDisplay()
