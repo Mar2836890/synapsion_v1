@@ -45,6 +45,7 @@ public class SphereRandomGenerator : MonoBehaviour
     // For brain mode
     public GameObject BrainModel;
     public Toggle BrainToggle;
+    public GameObject Transparecny;
     // for the search bar
     public TMP_InputField searchInputField;
     public Button searchButton;
@@ -236,18 +237,17 @@ public class SphereRandomGenerator : MonoBehaviour
     }
 
     // brain mode
-
-
-
     void OnBrainToggleChange(bool visable)
     {   
         if (BrainToggle.isOn == false)
         {
             BrainModel.SetActive(true);
+            Transparecny.SetActive(true);
         }
         else
         {
             BrainModel.SetActive(false);
+            Transparecny.SetActive(false);
         }
     }
 

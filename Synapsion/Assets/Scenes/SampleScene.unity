@@ -1878,6 +1878,7 @@ MonoBehaviour:
   lineToggle: {fileID: 1510504942}
   BrainModel: {fileID: 1278689723}
   BrainToggle: {fileID: 1970116351}
+  Transparecny: {fileID: 1985411574}
   searchInputField: {fileID: 1302222488}
   searchButton: {fileID: 1349221631}
   WarningText: {fileID: 722404776}
