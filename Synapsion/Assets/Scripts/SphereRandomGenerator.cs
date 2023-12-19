@@ -8,6 +8,7 @@ using System.Globalization;
 public class SphereRandomGenerator : MonoBehaviour
 {
     public float lineWidth = 0.11f;
+    public float lineWidth2 = 0;
     public GameObject spherePrefab;
     public Material lineMaterialWhite;
     public Material lineMaterialBlack;
@@ -166,7 +167,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject connectedSphere = FindSphere(connectedNodeName);
                 if (connectedSphere != null)
                 {
-                    CreateLine(sphere, connectedSphere, lineMaterialWhite);
+                    CreateLine(sphere, connectedSphere, lineMaterialWhite, lineWidth);
                 }
             }
             // create line to parent node, has different color
@@ -175,7 +176,7 @@ public class SphereRandomGenerator : MonoBehaviour
                 GameObject parentSphere = FindSphere(nodeComponent.ParentName);
                 if (parentSphere != null)
                 {
-                    CreateLine(sphere, parentSphere, lineMaterialBlack);
+                    CreateLine(sphere, parentSphere, lineMaterialBlack, lineWidth2);
                 }
             }
         }
@@ -213,7 +214,7 @@ public class SphereRandomGenerator : MonoBehaviour
             lineRenderer.SetPosition(1, newEndPos);
         }
     }
-    void CreateLine(GameObject startSphere, GameObject endSphere, Material material)
+    void CreateLine(GameObject startSphere, GameObject endSphere, Material material, float lineWidth)
     {
         LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
         lineRenderer.material = material;
@@ -480,6 +481,11 @@ public class SphereRandomGenerator : MonoBehaviour
             // Set the outline width for the selected sphere
             selectedOutline.OutlineWidth = highlightSize; // You can set any width you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+
+            if (lineToggle.isOn == true)
+            {
+                OnLineToggleValueChanged(true);
+            }
         }
         else
         {

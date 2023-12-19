@@ -1852,7 +1852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fa7c9b9378bdf4a9f1fcc2208a4501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineWidth: 0.11
+  lineWidth: 0.1
+  lineWidth2: 0.2
   spherePrefab: {fileID: 8668369917119417823, guid: a4cf0f54de7f6844291c589b15c7c48b, type: 3}
   lineMaterialWhite: {fileID: 2100000, guid: 67ec8b3cb2dc982488452f379dd58423, type: 2}
   lineMaterialBlack: {fileID: 2100000, guid: 2a9335a770c594c6687510bae7b71171, type: 2}
