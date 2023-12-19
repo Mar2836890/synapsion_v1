@@ -17,20 +17,32 @@ public class RotateZoomAndMove : MonoBehaviour
     public Rect allowedArea = new Rect(0.2f, 0.2f, 0.6f, 0.6f);
 
     void Update()
-    {
+    {   
+
+        // Check if the cursor is over the informationObject
+        bool isCursorOverInformation = IsCursorOverInformation();
+
+        // Zoom with the mouse wheel only if the cursor is not over the informationObject
+        if (!isCursorOverInformation)
+        {
+            float zoomAmount = Input.GetAxis("Mouse ScrollWheel");
+            ZoomStructure(zoomAmount);
+        }
+
+
         if (allowedArea.Contains(Input.mousePosition))
         {
-            if (Input.GetMouseButtonDown(0) && !isRotating)
+            if (Input.GetMouseButtonDown(0) && !isRotating && !isCursorOverInformation) 
             {
                 StartRotation();
             }
 
-            if (isRotating && Input.GetMouseButton(0))
+            if (isRotating && Input.GetMouseButton(0) && !isCursorOverInformation)
             {
                 RotateStructureByMouse();
             }
 
-            if (Input.GetMouseButtonUp(0) && isRotating)
+            if (Input.GetMouseButtonUp(0) && isRotating && !isCursorOverInformation)
             {
                 StopRotation();
             }
@@ -51,15 +63,6 @@ public class RotateZoomAndMove : MonoBehaviour
             }
         }
 
-        // Check if the cursor is over the informationObject
-        bool isCursorOverInformation = IsCursorOverInformation();
-
-        // Zoom with the mouse wheel only if the cursor is not over the informationObject
-        if (!isCursorOverInformation)
-        {
-            float zoomAmount = Input.GetAxis("Mouse ScrollWheel");
-            ZoomStructure(zoomAmount);
-        }
     }
 
     bool IsCursorOverInformation()

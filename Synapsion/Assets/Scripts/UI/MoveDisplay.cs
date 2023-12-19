@@ -9,7 +9,7 @@ public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHan
     private bool isMoving = false;
     private Vector2 mouseStartPosition;
     private Vector2 objectStartPosition;
-    private float moveSpeed = 0.1f;
+    private float moveSpeed = 2.0f;
 
     void Start()
     {
@@ -19,10 +19,7 @@ public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.pointerId == -1) // Right mouse button
-        {
-            StartMovement();
-        }
+        StartMovement();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -55,7 +52,10 @@ public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHan
 
         moveDirection *= moveSpeed;
 
-        textDisplayRect.anchoredPosition = objectStartPosition + moveDirection;
+        // Calculate the new position without clamping
+        Vector2 newPosition = objectStartPosition + moveDirection;
+
+        textDisplayRect.anchoredPosition = newPosition;
     }
 
     void StopMovement()
