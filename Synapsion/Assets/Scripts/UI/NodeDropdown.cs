@@ -32,5 +32,6 @@ public class NodeDropdown : MonoBehaviour
         string selectedNodeName = dropdown.options[index].text;
         // Call a method in SphereRandomGenerator to handle node selection
         sphereGenerator.SelectNodeByName(selectedNodeName);
+        sphereGenerator.searchInputField.text = selectedNodeName;
     }
 }
