@@ -300,7 +300,11 @@ public class SphereRandomGenerator : MonoBehaviour
         selectedOutline.OutlineColor = highlightColour;
 
         UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
-        lineToggle.isOn = false;
+        
+        if (lineToggle.isOn == true)
+        {
+            OnLineToggleValueChanged(true);
+        }
     }
 
 
@@ -381,6 +385,10 @@ public class SphereRandomGenerator : MonoBehaviour
             // Set the outline width for the selected sphere
             selectedOutline.OutlineWidth = 5f; // You can set any width you want
             UpdateTextDisplay(selectedSphere.GetComponent<NodeComponent>().NodeData);
+            
+        }
+        if (lineToggle.isOn == true)
+        {
             OnLineToggleValueChanged(true);
         }
     }

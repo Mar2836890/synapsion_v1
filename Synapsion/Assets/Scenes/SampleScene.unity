@@ -2044,7 +2044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -116.99994, y: -45.99991}
+  m_AnchoredPosition: {x: -116.1, y: -47.9}
   m_SizeDelta: {x: 36.889, y: 29.182}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &437414922
@@ -4740,10 +4740,10 @@ RectTransform:
   - {fileID: 780458839}
   - {fileID: 1949414371}
   - {fileID: 758946596}
+  - {fileID: 1970116350}
   - {fileID: 1302222487}
   - {fileID: 1349221630}
   - {fileID: 437414920}
-  - {fileID: 1970116350}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5562,7 +5562,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302222486}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5573,7 +5573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -86.309, y: -41.216}
+  m_AnchoredPosition: {x: -79.29309, y: -42.134583}
   m_SizeDelta: {x: 537.033, y: 41.769}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1302222488
@@ -5824,7 +5824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -95.94794, y: -51.574005}
+  m_AnchoredPosition: {x: -88.93207, y: -52.492462}
   m_SizeDelta: {x: 21.052002, y: 21.052002}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1349221631
@@ -5932,7 +5932,7 @@ GameObject:
   - component: {fileID: 1356334760}
   - component: {fileID: 1356334761}
   m_Layer: 5
-  m_Name: Text Area
+  m_Name: TextArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8624,7 +8624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d910f31dc76d40a59b7243dcbeb88bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasRect: {fileID: 931160630}
 --- !u!1 &1935803098
 GameObject:
   m_ObjectHideFlags: 0
