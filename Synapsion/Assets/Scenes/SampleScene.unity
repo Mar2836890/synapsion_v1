@@ -395,6 +395,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46077854}
   m_CullTransparentMesh: 1
+--- !u!1 &50380298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50380299}
+  - component: {fileID: 50380301}
+  - component: {fileID: 50380300}
+  m_Layer: 5
+  m_Name: Colorblindfriendly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &50380299
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50380298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 758946596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -127, y: 46}
+  m_SizeDelta: {x: 112.184, y: 346.368}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &50380300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50380298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 2592949cba1f8432482de020b2dc159c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &50380301
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50380298}
+  m_CullTransparentMesh: 1
 --- !u!1 &66848186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2918,11 +2993,11 @@ MonoBehaviour:
   - {r: 0.741, g: 0.698, b: 1, a: 1}
   colorblindFriendly:
   - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 0.79215693, g: 0.23137257, b: 0.49411768, a: 1}
+  - {r: 0.427451, g: 0.5568628, b: 0.9686275, a: 1}
   - {r: 0.95294124, g: 0.69803923, b: 0.2392157, a: 1}
   - {r: 0.92549026, g: 0.41960788, b: 0.17254902, a: 1}
-  - {r: 0.79215693, g: 0.23137257, b: 0.49411768, a: 1}
   - {r: 0.40388423, g: 0.30962977, b: 0.9245283, a: 1}
-  - {r: 0.42352945, g: 0.5529412, b: 0.9686275, a: 1}
   OriginalColors: []
   displayObj: {fileID: 1925436738}
   imageComponent: {fileID: 879235765}
@@ -2936,6 +3011,7 @@ MonoBehaviour:
   selectedSphere: {fileID: 0}
   lineToggle: {fileID: 1510504942}
   colorChange: {fileID: 209048360}
+  updateLegend: {fileID: 50380298}
   BrainModel: {fileID: 1278689723}
   BrainToggle: {fileID: 1970116351}
   Transparecny: {fileID: 1985411574}
@@ -5049,6 +5125,7 @@ RectTransform:
   - {fileID: 620480690}
   - {fileID: 233895221}
   - {fileID: 1642785738}
+  - {fileID: 50380299}
   m_Father: {fileID: 931160630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6107,7 +6184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &892587384
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7386,6 +7463,15 @@ MonoBehaviour:
   - {r: 0.608, g: 0.965, b: 1, a: 0.13}
   - {r: 0.992, g: 1, b: 0.714, a: 0.13}
   - {r: 1, g: 0.678, b: 0.678, a: 0.13}
+  colorblindFriendly:
+  - {r: 0.9528302, g: 0.7868801, b: 0.4809096, a: 0.12941177}
+  - {r: 0.9245283, g: 0.6322062, b: 0.49279103, a: 0.12941177}
+  - {r: 0.95294124, g: 0.78823537, b: 0.48235297, a: 0.12941177}
+  - {r: 0.56181026, g: 0.65531504, b: 0.9528302, a: 0.12941177}
+  - {r: 0.95294124, g: 0.78823537, b: 0.48235297, a: 0.12941177}
+  - {r: 0.7735849, g: 0.3977394, b: 0.5738349, a: 0.12941177}
+  OriginalColors: []
+  colorChange: {fileID: 209048360}
 --- !u!1 &1291016505
 GameObject:
   m_ObjectHideFlags: 0

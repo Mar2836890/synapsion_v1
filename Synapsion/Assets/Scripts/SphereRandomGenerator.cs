@@ -57,6 +57,7 @@ public class SphereRandomGenerator : MonoBehaviour
 
     // Color blind friendly toggle
     public Toggle colorChange;
+    public GameObject updateLegend;
     // For brain mode
     public GameObject BrainModel;
     public Toggle BrainToggle;
@@ -470,10 +471,12 @@ public class SphereRandomGenerator : MonoBehaviour
         if(!isCanged)
         {
             sphereColors = OriginalColors;
+            updateLegend.SetActive(false);
         }
         else
         {
             sphereColors = colorblindFriendly;
+            updateLegend.SetActive(true);
         }
         foreach (GameObject sphere in spheres)
         {

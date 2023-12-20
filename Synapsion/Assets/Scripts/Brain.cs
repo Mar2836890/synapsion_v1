@@ -20,11 +20,27 @@ public class AlphaSlider : MonoBehaviour
         new Color(1.0f, 0.678f, 0.678f, 0.13f),
     };
 
+    // For color blind friendly button
+    public List<Color> colorblindFriendly = new List<Color> {
+        Color.black,
+        Color.white,
+        Color.white,
+        Color.white,
+        Color.white,
+        Color.white
+    };
+
+    public List<Color> OriginalColors = new List<Color>{};
+    public Toggle colorChange;
+
     void Start()
     {
         // Add a listener to the slider to respond to changes
         alphaSlider.onValueChanged.AddListener(OnAlphaSliderChanged);
         ChangeColor();
+
+        OriginalColors = childColors;
+        colorChange.onValueChanged.AddListener(ColorChange);
     }
 
     void ChangeColor() // Removed semicolon here
@@ -57,6 +73,7 @@ public class AlphaSlider : MonoBehaviour
                 Debug.LogWarning("Child object does not have a Renderer component.");
             }
         }
+
     }
 
     void OnAlphaSliderChanged(float alphaValue)
@@ -87,5 +104,17 @@ public class AlphaSlider : MonoBehaviour
                 }
             }
         }
+    }
+    public void ColorChange(bool isCanged)
+    {
+        if(!isCanged)
+        {
+            childColors = OriginalColors;
+        }
+        else
+        {
+            childColors = colorblindFriendly;
+        }
+        ChangeColor();
     }
 }
