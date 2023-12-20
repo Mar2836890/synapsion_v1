@@ -3095,6 +3095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeButton: {fileID: 871705755}
+  openButton: {fileID: 331641811}
 --- !u!114 &638961238
 MonoBehaviour:
   m_ObjectHideFlags: 0
