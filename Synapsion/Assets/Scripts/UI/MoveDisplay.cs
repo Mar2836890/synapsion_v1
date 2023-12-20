@@ -9,7 +9,7 @@ public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHan
     private bool isMoving = false;
     private Vector2 mouseStartPosition;
     private Vector2 objectStartPosition;
-    private float moveSpeed = 2.0f;
+    private float moveSpeed = 1.2f;
 
     void Start()
     {
