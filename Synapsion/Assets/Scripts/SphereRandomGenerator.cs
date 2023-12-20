@@ -23,6 +23,18 @@ public class SphereRandomGenerator : MonoBehaviour
         new Color(0.792f, 1.0f, 0.749f, 1.0f),
         new Color(0.741f, 0.698f, 1.0f, 1.0f)
     };
+
+    // For color blind friendly button
+    public List<Color> colorblindFriendly = new List<Color> {
+        Color.black,
+        Color.white,
+        Color.white,
+        Color.white,
+        Color.white,
+        Color.white
+    };
+
+    public List<Color> OriginalColors = new List<Color>{};
     public GameObject displayObj;
     public Image imageComponent;
     public TMP_Text nameTextDisplay;
@@ -43,6 +55,8 @@ public class SphereRandomGenerator : MonoBehaviour
     // toggle button
     public Toggle lineToggle;
 
+    // Color blind friendly toggle
+    public Toggle colorChange;
     // For brain mode
     public GameObject BrainModel;
     public Toggle BrainToggle;
@@ -65,7 +79,7 @@ public class SphereRandomGenerator : MonoBehaviour
         public int NumEntry;
     }
     void Start()
-    {
+    {   
         structure = new GameObject("Structure");
         structure.transform.parent = transform;  // Set the parent of the structure GameObject
         GenerateNodesFromData();
@@ -87,6 +101,10 @@ public class SphereRandomGenerator : MonoBehaviour
         // toogle button
         lineToggle.onValueChanged.AddListener(OnLineToggleValueChanged);
         BrainToggle.onValueChanged.AddListener(OnBrainToggleChange);
+
+        OriginalColors = sphereColors;
+        colorChange.onValueChanged.AddListener(ColorChange);
+
     }
     void GenerateNodesFromData()
     {
@@ -442,6 +460,29 @@ public class SphereRandomGenerator : MonoBehaviour
 
     }
 
+
+
+
+
+    // change color
+    void ColorChange(bool isCanged)
+    {   
+        if(!isCanged)
+        {
+            sphereColors = OriginalColors;
+        }
+        else
+        {
+            sphereColors = colorblindFriendly;
+        }
+        foreach (GameObject sphere in spheres)
+        {
+            NodeComponent nodeComponent = sphere.GetComponent<NodeComponent>();
+            Renderer renderer = sphere.GetComponent<Renderer>();
+            renderer.material.color = sphereColors[nodeComponent.NumEntry];
+
+        }
+    }    
 
     // searchbar code
     void SearchNode()
