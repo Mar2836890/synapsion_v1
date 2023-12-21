@@ -67,6 +67,7 @@ public class SphereRandomGenerator : MonoBehaviour
     public Button searchButton;
     public GameObject WarningText;
     public float displayTime = 2f;
+    public GameObject SettingScreen;
     // Node class to hold data for each node
     public class Node
     {
@@ -272,8 +273,9 @@ public class SphereRandomGenerator : MonoBehaviour
     }
 
     void HandleSphereSelection()
-    {
-        if (Input.GetMouseButtonDown(0))
+    {   
+        bool isActive = SettingScreen.activeSelf;
+        if (isActive == false && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -284,6 +286,7 @@ public class SphereRandomGenerator : MonoBehaviour
             }
         }
     }
+
 
     void SetSelectedSphere(GameObject newSelectedSphere)
     {
@@ -460,10 +463,6 @@ public class SphereRandomGenerator : MonoBehaviour
         }
 
     }
-
-
-
-
 
     // change color
     void ColorChange(bool isCanged)

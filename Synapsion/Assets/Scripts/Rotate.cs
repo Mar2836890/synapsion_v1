@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 
 public class RotateZoomAndMove : MonoBehaviour
 {
@@ -9,12 +11,19 @@ public class RotateZoomAndMove : MonoBehaviour
     private Vector3 objectStartPosition;
     private float zoomSpeed = 0.3f;
     private float moveSpeed = 0.1f;
+    public Button resetButton;
 
     // Reference to the information GameObject
     public GameObject informationObject;
 
     // Define the rectangular area where actions are allowed (in screen coordinates)
     public Rect allowedArea = new Rect(0.2f, 0.2f, 0.6f, 0.6f);
+
+    void Start()
+    {
+        // Add an onClick listener to the reset button
+        resetButton.onClick.AddListener(ResetObject);
+    }
 
     void Update()
     {   
@@ -63,6 +72,14 @@ public class RotateZoomAndMove : MonoBehaviour
             }
         }
 
+    }
+
+    void ResetObject()
+    {
+        // Reset position, rotation, and scale
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
     }
 
     bool IsCursorOverInformation()
