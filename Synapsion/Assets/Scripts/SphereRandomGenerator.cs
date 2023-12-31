@@ -468,12 +468,12 @@ public class SphereRandomGenerator : MonoBehaviour
     void ColorChange(bool isCanged)
     {   
         if(!isCanged)
-        {
+        {   
             sphereColors = OriginalColors;
             updateLegend.SetActive(false);
         }
         else
-        {
+        {   
             sphereColors = colorblindFriendly;
             updateLegend.SetActive(true);
         }

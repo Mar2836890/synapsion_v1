@@ -10415,10 +10415,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: "In this program you can explore the main areas and functions of the human
     brain. Different regions and lobes are portrayed as nodes in a connected 3D network.
-    The lines represent different relations and connections between the parts. \r\n\r\nPlease
-    note that this is the second prototype, and a beginner's tutorial is currently
-    unavailable. We are actively working to incorporate this tutorial and other enhancements.\n\r\nHave
-    fun exploring our program, your feedback will be much appreciated!\r\n"
+    The lines represent different relations and connections between the parts. \r\n\r\nIf
+    you're using the program for the first time, you can access the tutorial by clicking
+    the \"Tutorial\" button. You can revisit the tutorial at any time by clicking
+    the information button located in the bottom right corner.\n\r\nHave fun exploring
+    our program, your feedback will be much appreciated!\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
