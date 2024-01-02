@@ -6,12 +6,15 @@ using System.IO;
 using TMPro;
 using System.Globalization;
 public class NetworkGenerator : MonoBehaviour
-{
+{   
+    // Lines of network
     public float lineWidth = 0.11f;
     public float lineWidth2 = 0;
-    public GameObject spherePrefab;
     public Material lineMaterialWhite;
     public Material lineMaterialBlack;
+
+    // Spheres of network
+    public GameObject spherePrefab;
     public Color highlightColour = Color.white;
     public float highlightSize = 10f;
     // 1 red, 2 blue, 3 yellow, 4 green, 5 purple
@@ -24,7 +27,7 @@ public class NetworkGenerator : MonoBehaviour
         new Color(0.741f, 0.698f, 1.0f, 1.0f)
     };
 
-    // For color blind friendly button
+    // Color blind friendly colors
     public List<Color> colorblindFriendly = new List<Color> {
         Color.black,
         Color.white,
@@ -35,14 +38,18 @@ public class NetworkGenerator : MonoBehaviour
     };
 
     public List<Color> OriginalColors = new List<Color>{};
+
+    // Display object 
     public GameObject displayObj;
     public Image imageComponent;
     public TMP_Text nameTextDisplay;
     public TMP_Text functionTextDisplay;
     public TMP_Text coordsTextDisplay;
     public TMP_Text neighborsTextDisplay;
-    public RectTransform buttonContainer; // Assign your UI panel for buttons in the Unity Editor
-    public Button buttonPrefab; // Assign your UI button prefab in the Unity Editor
+    public RectTransform buttonContainer;
+    public Button buttonPrefab; 
+
+    // Information of nodes and lines
     private Dictionary<GameObject, Color> originalSphereColors = new Dictionary<GameObject, Color>();
     private List<GameObject> spheres = new List<GameObject>();
     private List<Node> nodes = new List<Node>();
@@ -52,22 +59,28 @@ public class NetworkGenerator : MonoBehaviour
     public GameObject selectedSphere;
     private Outline selectedOutline; // New variable to store the Outline component of the selected sphere
     private List<Vector3> lineInitialPositions = new List<Vector3>();
-    // toggle button
+
+    // Line toggle button
     public Toggle lineToggle;
 
     // Color blind friendly toggle
     public Toggle colorChange;
     public GameObject updateLegend;
-    // For brain mode
+
+    // Brain mode
     public GameObject BrainModel;
     public Toggle BrainToggle;
     public GameObject Transparecny;
-    // for the search bar
+
+    // Search bar
     public TMP_InputField searchInputField;
     public Button searchButton;
     public GameObject WarningText;
     public float displayTime = 2f;
+
+    // Settings screen
     public GameObject SettingScreen;
+
     // Node class to hold data for each node
     public class Node
     {
@@ -80,32 +93,31 @@ public class NetworkGenerator : MonoBehaviour
         public float ZCoord;
         public int NumEntry;
     }
+
     void Start()
     {   
-        structure = new GameObject("Structure");
-        structure.transform.parent = transform;  // Set the parent of the structure GameObject
-        GenerateNodesFromData();
-        GenerateSpheres();
-        CreateConnectionLines();
-        SaveLineInitialPositions();
-        Button closeButton = displayObj.GetComponentInChildren<Button>();
+        structure = new GameObject("Structure");    // Main structure
+        structure.transform.parent = transform;     // Set the parent of the structure GameObject
+        GenerateNodesFromData();        // Creates the nodes and stores the data
+        GenerateSpheres();              // Greate actual sphere objects
+        CreateConnectionLines();        // Create lines between spheeres
+        SaveLineInitialPositions();     // Saves intial position so reset position is available
+
+        Button closeButton = displayObj.GetComponentInChildren<Button>();       // To quit text display
         if (closeButton != null)
         {
-            // Add a click event to the close button to quit the text display
             closeButton.onClick.AddListener(() => QuitTextDisplay());
         }
         else
         {
             Debug.LogError("Close button not found in the display object.");
         }
-        //search button
-        searchButton.onClick.AddListener(() => SearchNode());
-        // toogle button
-        lineToggle.onValueChanged.AddListener(OnLineToggleValueChanged);
-        BrainToggle.onValueChanged.AddListener(OnBrainToggleChange);
 
-        OriginalColors = sphereColors;
-        colorChange.onValueChanged.AddListener(ColorChange);
+        searchButton.onClick.AddListener(() => SearchNode());       // Search button to search nodes with searchbar
+        lineToggle.onValueChanged.AddListener(OnLineToggleValueChanged);    // Remove and show the lines between spheres
+        BrainToggle.onValueChanged.AddListener(OnBrainToggleChange);        // Remove and show the brain model 
+        OriginalColors = sphereColors;                              // Original colors 
+        colorChange.onValueChanged.AddListener(ColorChange);        // Changes the colors of the nodes
 
     }
     void GenerateNodesFromData()
@@ -144,7 +156,8 @@ public class NetworkGenerator : MonoBehaviour
         }
     }
     void GenerateSpheres()
-    {
+    {   
+        // Each node will have a sphere object that holds the same information
         foreach (Node node in nodes)
         {
             Vector3 position = new Vector3(node.XCoord, node.YCoord, node.ZCoord);
@@ -158,6 +171,7 @@ public class NetworkGenerator : MonoBehaviour
             nodeComponent.ZCoord = node.ZCoord;
             nodeComponent.NumEntry = node.NumEntry;
             nodeComponent.ConnectedTo = new List<string>(node.ConnectedTo);
+
             // Store the Node data in the NodeComponent
             nodeComponent.NodeData = new Node
             {
@@ -201,6 +215,8 @@ public class NetworkGenerator : MonoBehaviour
             }
         }
     }
+
+    // Find a sphere object with the node name
     public GameObject FindSphere(string nodeName)
     {
         foreach (var sphere in spheres)
@@ -248,16 +264,15 @@ public class NetworkGenerator : MonoBehaviour
     }
     void Update()
     {
-        UpdateLinePositions();
-        HandleSphereSelection();
-        // Check for enter key press in the search bar
-        if (Input.GetKeyDown(KeyCode.Return))
+        UpdateLinePositions();      // Update the lines with movement
+        HandleSphereSelection();    // Handle the steps for when a sphere is selected
+        if (Input.GetKeyDown(KeyCode.Return))   // Check for enter key press in the search bar
         {
             SearchNode();
         }
     }
 
-    // brain mode
+    // (de)Activate the brain model
     void OnBrainToggleChange(bool visable)
     {   
         if (BrainToggle.isOn == false)
@@ -340,6 +355,7 @@ public class NetworkGenerator : MonoBehaviour
         }
     }
 
+    // Create a text display for the selected node
     void UpdateTextDisplay(Node node)
     {
         displayObj.SetActive(true);
@@ -355,6 +371,7 @@ public class NetworkGenerator : MonoBehaviour
             CreateNeighborButtons(node);
         }
     }
+    // Creates the list of neigboring nodes buttons 
     void CreateNeighborButtons(Node node)
     {
         // Clear existing buttons
@@ -433,7 +450,7 @@ public class NetworkGenerator : MonoBehaviour
         displayObj.SetActive(false);
     }
 
-    // toggle code, to only see lines directly connected to selected sphere
+    // Toggle code, to only see lines directly connected to selected sphere
 
     void OnLineToggleValueChanged(bool isVisible)
     {
@@ -464,7 +481,7 @@ public class NetworkGenerator : MonoBehaviour
 
     }
 
-    // change color
+    // Change color
     void ColorChange(bool isCanged)
     {   
         if(!isCanged)
@@ -486,7 +503,7 @@ public class NetworkGenerator : MonoBehaviour
         }
     }    
 
-    // searchbar code
+    // Searchbar code
     void SearchNode()
     {
         string nodeNameToSearch = searchInputField.text.Trim();

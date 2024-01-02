@@ -9,7 +9,6 @@ public class NodeComponent : MonoBehaviour
     // For now, it will store the Node data associated with the sphere
     //     public string name;
 
-
     public string Name;
     public string ParentName;
     public string Function;

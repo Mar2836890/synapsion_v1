@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class AlphaSlider : MonoBehaviour
+public class BrainObject : MonoBehaviour
 {
     public Slider alphaSlider;
     public GameObject prefabVariant;
@@ -19,7 +19,7 @@ public class AlphaSlider : MonoBehaviour
         new Color(1.0f, 0.678f, 0.678f, 0.13f),
     };
 
-    // For color blind friendly button
+    // For color blind friendly options
     public List<Color> colorblindFriendly = new List<Color> {
         Color.black,
         Color.white,
@@ -32,28 +32,25 @@ public class AlphaSlider : MonoBehaviour
     private List<Color> originalColors = new List<Color> { };
     private float originalAlpha;
 
+    // Color-blind friendly option
     public Toggle colorChange;
 
     void Start()
-    {
-        // Add a listener to the slider to respond to changes
+    {   
+        // transparecy slider
         alphaSlider.onValueChanged.AddListener(OnAlphaSliderChanged);
         ChangeColor();
 
+        // safe original color/transparecny
         originalColors = new List<Color>(childColors);
         originalAlpha = sharedMaterial.color.a;
 
         colorChange.onValueChanged.AddListener(ColorChange);
     }
 
+    // Method that changes the actual color of the shared material 
     void ChangeColor()
     {
-        if (childColors.Count != transform.childCount)
-        {
-            Debug.LogError("Number of child colors does not match the number of children.");
-            return;
-        }
-
         // Apply colors to each child object
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -78,6 +75,7 @@ public class AlphaSlider : MonoBehaviour
         }
     }
 
+    // Method that changes the albedo alpha value with the slider value
     void OnAlphaSliderChanged(float alphaValue)
     {
         // Store the new alpha value
@@ -90,7 +88,6 @@ public class AlphaSlider : MonoBehaviour
 
             Renderer renderer = child.GetComponent<Renderer>();
 
-            // Check if the object has a Renderer component
             if (renderer != null)
             {
                 // Use sharedMaterials instead of materials
@@ -111,6 +108,7 @@ public class AlphaSlider : MonoBehaviour
         }
     }
 
+    // Method that changes the main color that will be used in the change color method
     public void ColorChange(bool isChanged)
     {
         if (isChanged)

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
-using System.Linq;  // Added using directive for LINQ
+using System.Linq; 
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class NodeDropdown : MonoBehaviour
 {
-    public TMP_Dropdown dropdown;  // Reference to the Dropdown UI component
-    public NetworkGenerator sphereGenerator;  // Reference to the SphereRandomGenerator script
+    public TMP_Dropdown dropdown; 
+
+    // Ref to the NetworkGenerator script
+    public NetworkGenerator sphereGenerator;  
 
     void Start()
     {
@@ -30,7 +32,7 @@ public class NodeDropdown : MonoBehaviour
     {
         // Get the selected node name from the dropdown
         string selectedNodeName = dropdown.options[index].text;
-        // Call a method in SphereRandomGenerator to handle node selection
+        // Call a method in NetworkGenerator to handle node selection
         sphereGenerator.SelectNodeByName(selectedNodeName);
         sphereGenerator.searchInputField.text = selectedNodeName;
     }

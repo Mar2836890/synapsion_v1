@@ -3,13 +3,11 @@ using UnityEngine.UI;
 
 public class TutorialScript : MonoBehaviour
 {
-    // Reference to the button inside the pop-up
     public Button CloseButton;
     public GameObject TutorialScreen;
 
     private void Start()
     {
-        // Attach a listener to the button's onClick event
         CloseButton.onClick.AddListener(ClosePopup);
     }   
 
@@ -18,14 +16,12 @@ public class TutorialScript : MonoBehaviour
         gameObject.SetActive(true); 
     }
 
+    // Open or close popup depending on current state
     public void ToggleTutorial()
     {
         if (TutorialScreen != null)
         {
-            // Check if the legend is currently active
             bool isActive = TutorialScreen.activeSelf;
-
-            // Toggle the visibility of the legend
             TutorialScreen.SetActive(!isActive);
         }
     }
@@ -34,7 +30,7 @@ public class TutorialScript : MonoBehaviour
     private void ClosePopup()
     {
         // Deactivate or destroy the pop-up GameObject
-        gameObject.SetActive(false); // Alternatively, you can use Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
 

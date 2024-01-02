@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloseUI : MonoBehaviour
 {
-   public void CloseObj(GameObject _objToDisable)
+public void CloseObj(GameObject _objToDisable)
     {
         _objToDisable.SetActive(false);
     }

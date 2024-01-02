@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class LegendController : MonoBehaviour
 {
-    // Reference to the legend GameObject
+    // Ref to the legend 
     public GameObject legendObject;
 
-    // Call this method when the "Toggle Legend" button is pressed
+    // Call this method when the Toggle button is pressed
     public void ToggleLegend()
     {
         if (legendObject != null)

@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// Enables movement of the text display, based on the rotation script
 public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
-{
+{   
     private RectTransform textDisplayRect;
     private Vector2 originalPosition;
 
@@ -52,7 +53,7 @@ public class DraggableTextDisplay : MonoBehaviour, IPointerDownHandler, IDragHan
 
         moveDirection *= moveSpeed;
 
-        // Calculate the new position without clamping
+        // Calculate the new position 
         Vector2 newPosition = objectStartPosition + moveDirection;
 
         textDisplayRect.anchoredPosition = newPosition;
