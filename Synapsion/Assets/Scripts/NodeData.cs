@@ -19,6 +19,6 @@ public class NodeComponent : MonoBehaviour
     public float ZCoord;
     public int NumEntry;
 
-    public SphereRandomGenerator.Node NodeData { get; set; }
+    public NetworkGenerator.Node NodeData { get; set; }
 
 }

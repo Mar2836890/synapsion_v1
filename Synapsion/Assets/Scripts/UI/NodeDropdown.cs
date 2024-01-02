@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NodeDropdown : MonoBehaviour
 {
     public TMP_Dropdown dropdown;  // Reference to the Dropdown UI component
-    public SphereRandomGenerator sphereGenerator;  // Reference to the SphereRandomGenerator script
+    public NetworkGenerator sphereGenerator;  // Reference to the SphereRandomGenerator script
 
     void Start()
     {
