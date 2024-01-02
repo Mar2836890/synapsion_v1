@@ -10,7 +10,6 @@ public class AlphaSlider : MonoBehaviour
     public Material sharedMaterial;
 
     // List of colors for each child object
-    // 1 yellow, 2 green, 3 yellow, 4 red, 5 yellow, 6 blue
     public List<Color> childColors = new List<Color> {
         new Color(0.992f, 1.0f, 0.714f, 0.13f),
         new Color(0.792f, 1.0f, 0.749f, 0.13f),
@@ -30,7 +29,9 @@ public class AlphaSlider : MonoBehaviour
         Color.white
     };
 
-    public List<Color> OriginalColors = new List<Color>{};
+    private List<Color> originalColors = new List<Color> { };
+    private float originalAlpha;
+
     public Toggle colorChange;
 
     void Start()
@@ -39,11 +40,13 @@ public class AlphaSlider : MonoBehaviour
         alphaSlider.onValueChanged.AddListener(OnAlphaSliderChanged);
         ChangeColor();
 
-        OriginalColors = childColors;
+        originalColors = new List<Color>(childColors);
+        originalAlpha = sharedMaterial.color.a;
+
         colorChange.onValueChanged.AddListener(ColorChange);
     }
 
-    void ChangeColor() // Removed semicolon here
+    void ChangeColor()
     {
         if (childColors.Count != transform.childCount)
         {
@@ -59,8 +62,8 @@ public class AlphaSlider : MonoBehaviour
             // Create a new material instance for each child
             Material childMaterial = new Material(sharedMaterial);
 
-            // Set the color for the child material
-            childMaterial.color = childColors[i];
+            // Set the color and original alpha for the child material
+            childMaterial.color = new Color(childColors[i].r, childColors[i].g, childColors[i].b, originalAlpha);
 
             // Apply the material to the child object
             Renderer renderer = child.GetComponent<Renderer>();
@@ -73,14 +76,16 @@ public class AlphaSlider : MonoBehaviour
                 Debug.LogWarning("Child object does not have a Renderer component.");
             }
         }
-
     }
 
     void OnAlphaSliderChanged(float alphaValue)
     {
+        // Store the new alpha value
+        originalAlpha = alphaValue;
+
         // Iterate through the children of the prefab variant
         for (int j = 0; j < transform.childCount; j++)
-        {   
+        {
             Transform child = transform.GetChild(j);
 
             Renderer renderer = child.GetComponent<Renderer>();
@@ -99,21 +104,22 @@ public class AlphaSlider : MonoBehaviour
 
                     // Set the alpha value of the material's color
                     Color currentColor = material.color;
-                    currentColor.a = alphaValue;
+                    currentColor.a = originalAlpha;
                     material.color = currentColor;
                 }
             }
         }
     }
-    public void ColorChange(bool isCanged)
+
+    public void ColorChange(bool isChanged)
     {
-        if(!isCanged)
+        if (isChanged)
         {
-            childColors = OriginalColors;
+            childColors = new List<Color>(colorblindFriendly);
         }
         else
         {
-            childColors = colorblindFriendly;
+            childColors = new List<Color>(originalColors);
         }
         ChangeColor();
     }
